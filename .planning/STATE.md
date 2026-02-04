@@ -3,14 +3,14 @@
 ## Current Status
 - **Milestone:** v1.0
 - **Phase:** 01 - Foundation + Auth + Onboarding
-- **Plan:** 09 of 36 complete
+- **Plan:** 10 of 36 complete
 - **Status:** In progress
-- **Last activity:** 2026-02-04 - Completed 01-09-PLAN.md
+- **Last activity:** 2026-02-04 - Completed 01-10-PLAN.md
 
 ## Progress
 | Phase | Status | Plans | Progress |
 |-------|--------|-------|----------|
-| 01    | In progress | 9/36 | 25% |
+| 01    | In progress | 10/36 | 28% |
 | 02    | ○      | 0/?   | 0% |
 | 03    | ○      | 0/?   | 0% |
 | 04    | ○      | 0/?   | 0% |
@@ -49,7 +49,7 @@
 ### Wave 6 - Auth Mutations
 | Plan | Name | Depends On | Status |
 |------|------|------------|--------|
-| 01-10 | Create auth mutations | 01-05, 01-03 | ○ |
+| 01-10 | Create auth mutations | 01-05, 01-03 | DONE |
 
 ### Wave 7 - Components Base
 | Plan | Name | Depends On | Status |
@@ -178,12 +178,17 @@
 - Schema alignment: validators match schema exactly (botConfig.tone is string, not union)
 - Auto-timestamps: all mutations update updatedAt field
 
+### Auth Mutations (01-10)
+- Auto-create clinic draft on registration for seamless onboarding
+- Identity-based user lookup via ctx.auth.getUserIdentity()
+- Return user with embedded clinic object for single-query access
+
 ## Blockers
 None
 
 ## Session Continuity
-- **Last session:** 2026-02-04T07:01Z
-- **Stopped at:** Completed 01-09-PLAN.md
+- **Last session:** 2026-02-04T07:03Z
+- **Stopped at:** Completed 01-10-PLAN.md
 - **Resume file:** None
 
 ## Notes
