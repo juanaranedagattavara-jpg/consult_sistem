@@ -3,14 +3,14 @@
 ## Current Status
 - **Milestone:** v1.0
 - **Phase:** 01 - Foundation + Auth + Onboarding
-- **Plan:** 30 of 36 complete
+- **Plan:** 31 of 36 complete
 - **Status:** In progress
-- **Last activity:** 2026-02-04 - Completed 01-32-PLAN.md
+- **Last activity:** 2026-02-04 - Completed 01-33-PLAN.md
 
 ## Progress
 | Phase | Status | Plans | Progress |
 |-------|--------|-------|----------|
-| 01    | In progress | 30/36 | 83% |
+| 01    | In progress | 31/36 | 86% |
 | 02    | ○      | 0/?   | 0% |
 | 03    | ○      | 0/?   | 0% |
 | 04    | ○      | 0/?   | 0% |
@@ -106,9 +106,9 @@
 | Plan | Name | Depends On | Status |
 |------|------|------------|--------|
 | 01-30 | Create header component | 01-29, 01-12 | ○ |
-| 01-31 | Create nav component | 01-29 | ○ |
+| 01-31 | Create nav component | 01-29 | DONE |
 | 01-32 | Create stats card component | 01-29 | DONE |
-| 01-33 | Create upcoming appointments | 01-29 | ○ |
+| 01-33 | Create upcoming appointments | 01-29 | DONE |
 
 ### Wave 16 - Dashboard Pages
 | Plan | Name | Depends On | Status |
@@ -262,6 +262,11 @@
 - Theme-aware colors using muted-foreground instead of hardcoded gray
 - Dark mode support for trend colors using dark: prefix
 - Stats card pattern: icon in circle, title, value, optional description and trend
+
+### Upcoming Appointments Component (01-33)
+- Theme-aware empty state with muted-foreground colors
+- Typed Appointment interface for Phase 3 data integration
+- Empty state pattern: Calendar icon + message + helper text
 
 ## Blockers
 None
