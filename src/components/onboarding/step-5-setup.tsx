@@ -4,6 +4,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { useMutation } from "convex/react";
+import { api } from "../../../convex/_generated/api";
+import { Id } from "../../../convex/_generated/dataModel";
 import { useOnboardingStore } from "@/lib/stores/onboarding-store";
 import { setupSchema, SetupInput } from "@/lib/validators/onboarding";
 import { Button } from "@/components/ui/button";
@@ -33,6 +36,7 @@ export function Step5Setup({ onBack }: Step5Props) {
   const router = useRouter();
   const { data, setStepData, reset } = useOnboardingStore();
   const [loading, setLoading] = useState(false);
+  const completeOnboarding = useMutation(api.clinics.completeOnboarding);
 
   const form = useForm<SetupInput>({
     resolver: zodResolver(setupSchema),
@@ -50,15 +54,41 @@ export function Step5Setup({ onBack }: Step5Props) {
     setStepData("setup", values);
 
     try {
-      // Collect all data from store for future mutation integration
-      const allData = {
-        ...data,
-        setup: values,
-      };
+      // Validate that all required data is present
+      if (!data.clinic || !data.branding || !data.schedule) {
+        throw new Error("Faltan datos de pasos anteriores");
+      }
 
-      // For now, just show success
-      // completeOnboarding mutation will be called in 01-22
-      toast.success("¡Configuración completada!");
+      // Call completeOnboarding mutation with all collected data
+      await completeOnboarding({
+        clinic: {
+          name: data.clinic.name,
+          taxId: data.clinic.taxId,
+          address: data.clinic.address,
+          phone: data.clinic.phone,
+        },
+        branding: {
+          logo: data.branding.logo
+            ? (data.branding.logo as Id<"_storage">)
+            : undefined,
+          primaryColor: data.branding.primaryColor,
+          secondaryColor: data.branding.secondaryColor,
+        },
+        schedule: {
+          workDays: data.schedule.workDays,
+          openTime: data.schedule.openTime,
+          closeTime: data.schedule.closeTime,
+          lunchStart: data.schedule.lunchStart,
+          lunchEnd: data.schedule.lunchEnd,
+        },
+        setup: {
+          professionalName: values.professionalName,
+          serviceName: values.serviceName,
+          serviceDuration: values.serviceDuration,
+        },
+      });
+
+      toast.success("¡Configuracion completada!");
       reset();
       router.push("/dashboard");
     } catch (error: unknown) {

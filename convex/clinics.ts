@@ -130,3 +130,75 @@ export const createClinicDraft = mutation({
     return clinicId;
   },
 });
+
+export const completeOnboarding = mutation({
+  args: {
+    clinic: v.object({
+      name: v.string(),
+      taxId: v.string(),
+      address: v.string(),
+      phone: v.string(),
+    }),
+    branding: v.object({
+      logo: v.optional(v.id("_storage")),
+      primaryColor: v.string(),
+      secondaryColor: v.string(),
+    }),
+    schedule: v.object({
+      workDays: v.array(v.number()),
+      openTime: v.string(),
+      closeTime: v.string(),
+      lunchStart: v.optional(v.string()),
+      lunchEnd: v.optional(v.string()),
+    }),
+    setup: v.object({
+      professionalName: v.string(),
+      serviceName: v.string(),
+      serviceDuration: v.number(),
+    }),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("No autenticado");
+
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_email", (q) => q.eq("email", identity.email!))
+      .first();
+
+    if (!user) throw new Error("Usuario no encontrado");
+
+    // Update clinic with all onboarding data
+    await ctx.db.patch(user.clinicId, {
+      name: args.clinic.name,
+      taxId: args.clinic.taxId,
+      address: args.clinic.address,
+      phone: args.clinic.phone,
+      logo: args.branding.logo,
+      colors: {
+        primary: args.branding.primaryColor,
+        secondary: args.branding.secondaryColor,
+      },
+      hours: {
+        open: args.schedule.openTime,
+        close: args.schedule.closeTime,
+        lunch:
+          args.schedule.lunchStart && args.schedule.lunchEnd
+            ? {
+                start: args.schedule.lunchStart,
+                end: args.schedule.lunchEnd,
+              }
+            : undefined,
+      },
+      workDays: args.schedule.workDays,
+      defaultSlotDuration: args.setup.serviceDuration,
+      onboardingCompleted: true,
+      updatedAt: Date.now(),
+    });
+
+    // Note: Professional and Service creation will be added in Phase 2
+    // For now, setup data (professionalName, serviceName) is used for defaultSlotDuration
+
+    return { success: true };
+  },
+});
