@@ -3,14 +3,14 @@
 ## Current Status
 - **Milestone:** v1.0
 - **Phase:** 01 - Foundation + Auth + Onboarding
-- **Plan:** 04 of 36 complete
+- **Plan:** 06 of 36 complete
 - **Status:** In progress
-- **Last activity:** 2026-02-04 - Completed 01-04-PLAN.md
+- **Last activity:** 2026-02-04 - Completed 01-06-PLAN.md
 
 ## Progress
 | Phase | Status | Plans | Progress |
 |-------|--------|-------|----------|
-| 01    | In progress | 4/36 | 11% |
+| 01    | In progress | 6/36 | 17% |
 | 02    | ○      | 0/?   | 0% |
 | 03    | ○      | 0/?   | 0% |
 | 04    | ○      | 0/?   | 0% |
@@ -36,8 +36,8 @@
 ### Wave 4 - Auth & Providers
 | Plan | Name | Depends On | Status |
 |------|------|------------|--------|
-| 01-05 | Configure Convex Auth | 01-03 | ○ |
-| 01-06 | Create root layout with providers | 01-04 | ○ |
+| 01-05 | Configure Convex Auth | 01-03 | DONE |
+| 01-06 | Create root layout with providers | 01-04, 01-05 | DONE |
 
 ### Wave 5 - Validators & Mutations Base
 | Plan | Name | Depends On | Status |
@@ -163,12 +163,18 @@
 - CSS variables for theming (dark mode ready)
 - cn() utility for className merging
 
+### Root Layout (01-06)
+- Provider hierarchy: ConvexClientProvider -> ThemeProvider -> children
+- ConvexAuthProvider wraps entire app for auth state
+- ThemeProvider with system preference detection
+- Toaster (sonner) for toast notifications
+
 ## Blockers
 None
 
 ## Session Continuity
-- **Last session:** 2026-02-04T06:47Z
-- **Stopped at:** Completed 01-04-PLAN.md
+- **Last session:** 2026-02-04T06:57Z
+- **Stopped at:** Completed 01-06-PLAN.md
 - **Resume file:** None
 
 ## Notes
