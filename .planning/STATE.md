@@ -3,14 +3,14 @@
 ## Current Status
 - **Milestone:** v1.0
 - **Phase:** 01 - Foundation + Auth + Onboarding
-- **Plan:** 31 of 36 complete
+- **Plan:** 32 of 36 complete
 - **Status:** In progress
-- **Last activity:** 2026-02-04 - Completed 01-33-PLAN.md
+- **Last activity:** 2026-02-04 - Completed 01-34-PLAN.md
 
 ## Progress
 | Phase | Status | Plans | Progress |
 |-------|--------|-------|----------|
-| 01    | In progress | 31/36 | 86% |
+| 01    | In progress | 32/36 | 89% |
 | 02    | ○      | 0/?   | 0% |
 | 03    | ○      | 0/?   | 0% |
 | 04    | ○      | 0/?   | 0% |
@@ -113,7 +113,7 @@
 ### Wave 16 - Dashboard Pages
 | Plan | Name | Depends On | Status |
 |------|------|------------|--------|
-| 01-34 | Create dashboard layout | 01-30, 01-31 | ○ |
+| 01-34 | Create dashboard layout | 01-30, 01-31 | DONE |
 | 01-35 | Create dashboard page | 01-32, 01-33, 01-34 | ○ |
 | 01-36 | Create placeholder pages | 01-34 | ○ |
 
@@ -268,12 +268,18 @@
 - Typed Appointment interface for Phase 3 data integration
 - Empty state pattern: Calendar icon + message + helper text
 
+### Dashboard Layout (01-34)
+- Separate useEffect hooks for auth check and onboarding check
+- hexToHsl helper for CSS variable compatibility with shadcn/ui
+- Auth guard pattern: user === null (unauthenticated), user === undefined (loading)
+- White label pattern: apply colors from clinic settings to CSS variables
+
 ## Blockers
 None
 
 ## Session Continuity
-- **Last session:** 2026-02-04T13:10Z
-- **Stopped at:** Completed 01-33-PLAN.md
+- **Last session:** 2026-02-04T13:20Z
+- **Stopped at:** Completed 01-34-PLAN.md
 - **Resume file:** None
 
 ## Notes
