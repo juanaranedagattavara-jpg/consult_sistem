@@ -3,14 +3,14 @@
 ## Current Status
 - **Milestone:** v1.0
 - **Phase:** 01 - Foundation + Auth + Onboarding
-- **Plan:** 25 of 36 complete
+- **Plan:** 26 of 36 complete
 - **Status:** In progress
-- **Last activity:** 2026-02-04 - Completed 01-25-PLAN.md
+- **Last activity:** 2026-02-04 - Completed 01-26-PLAN.md
 
 ## Progress
 | Phase | Status | Plans | Progress |
 |-------|--------|-------|----------|
-| 01    | In progress | 25/36 | 69% |
+| 01    | In progress | 26/36 | 72% |
 | 02    | ○      | 0/?   | 0% |
 | 03    | ○      | 0/?   | 0% |
 | 04    | ○      | 0/?   | 0% |
@@ -89,7 +89,7 @@
 | 01-23 | Create clinic settings form | 01-09, 01-06 | DONE |
 | 01-24 | Create bot config form | 01-09, 01-06 | DONE |
 | 01-25 | Create timing settings form | 01-09, 01-06 | DONE |
-| 01-26 | Create appearance form | 01-09, 01-11 | ○ |
+| 01-26 | Create appearance form | 01-09, 01-11 | DONE |
 | 01-27 | Create profile form | 01-09, 01-06 | DONE |
 
 ### Wave 13 - Settings Pages
@@ -247,12 +247,18 @@
 - Helper text explains purpose and valid ranges
 - useEffect pattern for form reset when clinic data loads
 
+### Appearance Form (01-26)
+- useEffect for form.reset when user data loads
+- Dual color input (type="color" + text) for precise control
+- Live preview with inline styles updated via form.watch()
+- Updates CSS --primary variable on save for immediate effect
+
 ## Blockers
 None
 
 ## Session Continuity
-- **Last session:** 2026-02-04T07:33Z
-- **Stopped at:** Completed 01-25-PLAN.md
+- **Last session:** 2026-02-04T07:35Z
+- **Stopped at:** Completed 01-26-PLAN.md
 - **Resume file:** None
 
 ## Notes
