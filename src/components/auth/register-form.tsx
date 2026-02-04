@@ -17,7 +17,7 @@ import { toast } from "sonner";
 
 export function RegisterForm() {
   const { signIn } = useAuthActions();
-  const register = useMutation(api.users.register);
+  const createClinicForUser = useMutation(api.users.createClinicForUser);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
@@ -29,16 +29,19 @@ export function RegisterForm() {
   const onSubmit = async (data: RegisterInput) => {
     setLoading(true);
     try {
-      await register({
-        name: data.name,
-        email: data.email,
-        password: data.password,
-      });
+      // Step 1: Register with Convex Auth (creates authAccount)
       await signIn("password", {
         email: data.email,
         password: data.password,
-        flow: "signIn",
+        flow: "signUp",
       });
+
+      // Step 2: Create clinic and user record in our tables
+      await createClinicForUser({
+        name: data.name,
+        email: data.email,
+      });
+
       router.push("/onboarding");
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : "Error al registrar";

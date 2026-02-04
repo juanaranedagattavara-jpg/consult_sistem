@@ -95,10 +95,13 @@ export default defineSchema({
     .index("by_slug", ["slug"])
     .index("by_email", ["email"]),
 
-  users: defineTable({
+  // Custom profiles table (separate from Convex Auth's users table)
+  profiles: defineTable({
+    // Link to Convex Auth user
+    userId: v.id("users"),
+
     // Basic info
     email: v.string(),
-    passwordHash: v.string(),
     name: v.string(),
     role: v.union(v.literal("admin"), v.literal("staff")),
 
@@ -116,5 +119,6 @@ export default defineSchema({
     createdAt: v.number(),
   })
     .index("by_email", ["email"])
+    .index("by_userId", ["userId"])
     .index("by_clinic", ["clinicId"]),
 });

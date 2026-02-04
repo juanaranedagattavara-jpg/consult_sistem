@@ -1,49 +1,65 @@
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
-import { auth } from "./auth";
 
 export const getCurrentUser = query({
   handler: async (ctx) => {
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) return null;
 
-    const user = await ctx.db
-      .query("users")
+    // Get profile by email
+    const profile = await ctx.db
+      .query("profiles")
       .withIndex("by_email", (q) => q.eq("email", identity.email!))
       .first();
 
-    if (!user) return null;
+    if (!profile) return null;
 
-    const clinic = await ctx.db.get(user.clinicId);
+    const clinic = await ctx.db.get(profile.clinicId);
 
     return {
-      ...user,
+      ...profile,
       clinic,
     };
   },
 });
 
-export const register = mutation({
+export const createClinicForUser = mutation({
   args: {
     name: v.string(),
     email: v.string(),
-    password: v.string(),
   },
   handler: async (ctx, args) => {
-    // Check if email exists
+    // Verify user is authenticated
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("No autenticado");
+    }
+
+    // Check if profile already exists (prevent duplicates)
     const existing = await ctx.db
-      .query("users")
+      .query("profiles")
       .withIndex("by_email", (q) => q.eq("email", args.email))
       .first();
 
     if (existing) {
-      throw new Error("Email ya registrado");
+      // Profile already exists, return existing IDs
+      return { profileId: existing._id, clinicId: existing.clinicId };
+    }
+
+    // Get the Convex Auth user ID from the users table
+    const authUser = await ctx.db
+      .query("users")
+      .filter((q) => q.eq(q.field("email"), args.email))
+      .first();
+
+    if (!authUser) {
+      throw new Error("Usuario de autenticación no encontrado");
     }
 
     // Create clinic draft
     const clinicId = await ctx.db.insert("clinics", {
       name: `Clinica de ${args.name}`,
-      slug: args.name.toLowerCase().replace(/\s+/g, "-"),
+      slug: args.name.toLowerCase().replace(/\s+/g, "-") + "-" + Date.now(),
       taxId: "",
       address: "",
       phone: "",
@@ -81,10 +97,10 @@ export const register = mutation({
       updatedAt: Date.now(),
     });
 
-    // Create user (password hashing handled by Convex Auth)
-    const userId = await ctx.db.insert("users", {
+    // Create profile linked to auth user and clinic
+    const profileId = await ctx.db.insert("profiles", {
+      userId: authUser._id,
       email: args.email,
-      passwordHash: args.password, // Convex Auth will hash this
       name: args.name,
       role: "admin",
       clinicId,
@@ -92,7 +108,7 @@ export const register = mutation({
       createdAt: Date.now(),
     });
 
-    return { userId, clinicId };
+    return { profileId, clinicId };
   },
 });
 
@@ -105,14 +121,14 @@ export const updateProfile = mutation({
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) throw new Error("No autenticado");
 
-    const user = await ctx.db
-      .query("users")
+    const profile = await ctx.db
+      .query("profiles")
       .withIndex("by_email", (q) => q.eq("email", identity.email!))
       .first();
 
-    if (!user) throw new Error("Usuario no encontrado");
+    if (!profile) throw new Error("Perfil no encontrado");
 
-    await ctx.db.patch(user._id, {
+    await ctx.db.patch(profile._id, {
       name: args.name,
       avatar: args.avatar,
     });

@@ -161,15 +161,15 @@ export const completeOnboarding = mutation({
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) throw new Error("No autenticado");
 
-    const user = await ctx.db
-      .query("users")
+    const profile = await ctx.db
+      .query("profiles")
       .withIndex("by_email", (q) => q.eq("email", identity.email!))
       .first();
 
-    if (!user) throw new Error("Usuario no encontrado");
+    if (!profile) throw new Error("Perfil no encontrado");
 
     // Update clinic with all onboarding data
-    await ctx.db.patch(user.clinicId, {
+    await ctx.db.patch(profile.clinicId, {
       name: args.clinic.name,
       taxId: args.clinic.taxId,
       address: args.clinic.address,

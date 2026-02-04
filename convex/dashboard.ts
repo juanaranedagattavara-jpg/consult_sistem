@@ -5,13 +5,13 @@ export const getStats = query({
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) return null;
 
-    // Find user
-    const user = await ctx.db
-      .query("users")
+    // Find profile
+    const profile = await ctx.db
+      .query("profiles")
       .withIndex("by_email", (q) => q.eq("email", identity.email!))
       .first();
 
-    if (!user) return null;
+    if (!profile) return null;
 
     // For Phase 1, return placeholder stats
     // These will be calculated from real data in Phase 3
