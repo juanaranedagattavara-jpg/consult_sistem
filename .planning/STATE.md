@@ -2,16 +2,16 @@
 
 ## Current Status
 - **Milestone:** v1.0
-- **Phase:** 01 - Foundation + Auth + Onboarding
-- **Plan:** 36 of 36 complete
-- **Status:** PHASE COMPLETE
-- **Last activity:** 2026-02-04 - Completed 01-36-PLAN.md
+- **Phase:** 02 - Professionals + Services + Calendar
+- **Plan:** 0 of 25 complete
+- **Status:** PLANNED (Ready for execution)
+- **Last activity:** 2026-02-04 - Phase 02 planning complete
 
 ## Progress
 | Phase | Status | Plans | Progress |
 |-------|--------|-------|----------|
 | 01    | COMPLETE | 36/36 | 100% |
-| 02    | ○      | 0/?   | 0% |
+| 02    | PLANNED | 0/25   | 0% |
 | 03    | ○      | 0/?   | 0% |
 | 04    | ○      | 0/?   | 0% |
 
@@ -148,10 +148,12 @@
 - Sequential or broadcast notification method
 - Configurable timeouts
 
-### Google Calendar
-- Professional owns their calendar
-- Bidirectional sync
+### Google Calendar (Updated Phase 2)
+- CENTRALIZED OAuth model: n8n has OAuth, system stores calendar IDs only
+- Professionals SHARE their calendar with admin account
+- n8n accesses all calendars via admin account
 - If API fails: schedule anyway, sync later
+- Calendar selector uses mock data in Phase 2, n8n wiring in Phase 4
 
 ### Schema Design (01-03)
 - Nested objects for complex configs (botConfig, timing, waitlistConfig)
@@ -278,12 +280,71 @@
 - Theme-aware styling with muted-foreground/50 for placeholder icons
 - Placeholder page pattern: Card with centered icon, title, and phase reference
 
+## Phase 02 Plans (Atomic - 1 task = 1 plan)
+
+### Wave 1 - Dependencies & Schema
+| Plan | Name | Depends On | Status |
+|------|------|------------|--------|
+| 02-01 | Install dependencies + shadcn | - | ○ |
+| 02-02 | Schema: serviceCategories + services | - | ○ |
+| 02-03 | Schema: professionals + exceptions | - | ○ |
+
+### Wave 2 - Mutations & Queries
+| Plan | Name | Depends On | Status |
+|------|------|------------|--------|
+| 02-04 | Service categories mutations | 02-02 | ○ |
+| 02-05 | Services mutations | 02-02 | ○ |
+| 02-06 | Professionals mutations | 02-03 | ○ |
+| 02-07 | Professional exceptions mutations | 02-03 | ○ |
+
+### Wave 3 - UI Components Base
+| Plan | Name | Depends On | Status |
+|------|------|------------|--------|
+| 02-08 | Multi-select component | 02-01 | ○ |
+| 02-09 | Time picker component | 02-01 | ○ |
+| 02-10 | Color picker component | 02-01 | ○ |
+
+### Wave 4 - Backend Logic & HTTP
+| Plan | Name | Depends On | Status |
+|------|------|------------|--------|
+| 02-11 | Availability algorithm helpers | 02-02 | ○ |
+| 02-12 | Hono HTTP router + middleware | 02-01 | ○ |
+| 02-13 | HTTP endpoints (CRUD) | 02-04, 02-05, 02-06, 02-12 | ○ |
+
+### Wave 5 - Form Components
+| Plan | Name | Depends On | Status |
+|------|------|------------|--------|
+| 02-14 | Category form + list | 02-04, 02-08 | ○ |
+| 02-15 | Service form | 02-05, 02-10 | ○ |
+| 02-16 | Professional form | 02-06, 02-08 | ○ |
+| 02-17 | Schedule editor | 02-09 | ○ |
+| 02-18 | Calendar selector | 02-06 | ○ |
+
+### Wave 6 - Pages
+| Plan | Name | Depends On | Status |
+|------|------|------------|--------|
+| 02-19 | Services page (accordion + drag-drop) | 02-14, 02-15 | ○ |
+| 02-20 | Professionals table component | 02-06 | ○ |
+| 02-21 | Professionals cards component | 02-06 | ○ |
+| 02-22 | Professionals pages (list, new, edit) | 02-16, 02-17, 02-18, 02-20, 02-21 | ○ |
+
+### Wave 7 - Availability
+| Plan | Name | Depends On | Status |
+|------|------|------------|--------|
+| 02-23 | Availability action | 02-06, 02-07, 02-11 | ○ |
+| 02-24 | HTTP availability endpoint | 02-13, 02-23 | ○ |
+
+### Wave 8 - Verification
+| Plan | Name | Depends On | Status |
+|------|------|------------|--------|
+| 02-25 | Human verification checkpoint | 02-24 | ○ |
+
 ## Blockers
 None
 
 ## Session Continuity
-- **Last session:** 2026-02-04T13:21Z
-- **Stopped at:** Completed 01-36-PLAN.md (Phase 01 complete)
+- **Last session:** 2026-02-04T14:30Z
+- **Stopped at:** Phase 02 planning complete, ready for execution
 - **Resume file:** None
 
 ## Notes
