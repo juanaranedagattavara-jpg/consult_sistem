@@ -1,6 +1,6 @@
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
-import { Id } from "./_generated/dataModel";
+import { requireAuth, requireProfile } from "./lib/auth";
 
 export const getClinic = query({
   args: { clinicId: v.id("clinics") },
@@ -31,12 +31,7 @@ export const updateClinicBot = mutation({
       tone: v.string(),
       customPrompts: v.optional(v.array(v.string())),
       faqs: v.optional(
-        v.array(
-          v.object({
-            question: v.string(),
-            answer: v.string(),
-          })
-        )
+        v.array(v.object({ question: v.string(), answer: v.string() }))
       ),
       welcomeMessage: v.string(),
       afterHoursMessage: v.string(),
@@ -159,18 +154,9 @@ export const completeOnboarding = mutation({
     }),
   },
   handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) throw new Error("No autenticado");
+    await requireAuth(ctx);
+    const profile = await requireProfile(ctx);
 
-    const userId = identity.subject.split("|")[0];
-    const profile = await ctx.db
-      .query("profiles")
-      .withIndex("by_userId", (q) => q.eq("userId", userId as Id<"users">))
-      .first();
-
-    if (!profile) throw new Error("Perfil no encontrado");
-
-    // Update clinic with all onboarding data
     await ctx.db.patch(profile.clinicId, {
       name: args.clinic.name,
       taxId: args.clinic.taxId,
@@ -186,10 +172,7 @@ export const completeOnboarding = mutation({
         close: args.schedule.closeTime,
         lunch:
           args.schedule.lunchStart && args.schedule.lunchEnd
-            ? {
-                start: args.schedule.lunchStart,
-                end: args.schedule.lunchEnd,
-              }
+            ? { start: args.schedule.lunchStart, end: args.schedule.lunchEnd }
             : undefined,
       },
       workDays: args.schedule.workDays,
@@ -197,9 +180,6 @@ export const completeOnboarding = mutation({
       onboardingCompleted: true,
       updatedAt: Date.now(),
     });
-
-    // Note: Professional and Service creation will be added in Phase 2
-    // For now, setup data (professionalName, serviceName) is used for defaultSlotDuration
 
     return { success: true };
   },

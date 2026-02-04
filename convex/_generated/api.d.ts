@@ -13,6 +13,7 @@ import type * as clinics from "../clinics.js";
 import type * as dashboard from "../dashboard.js";
 import type * as files from "../files.js";
 import type * as http from "../http.js";
+import type * as lib_auth from "../lib/auth.js";
 import type * as users from "../users.js";
 
 import type {
@@ -27,6 +28,7 @@ declare const fullApi: ApiFromModules<{
   dashboard: typeof dashboard;
   files: typeof files;
   http: typeof http;
+  "lib/auth": typeof lib_auth;
   users: typeof users;
 }>;
 

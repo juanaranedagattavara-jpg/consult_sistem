@@ -1,22 +1,13 @@
 import { query } from "./_generated/server";
-import { Id } from "./_generated/dataModel";
+import { getCurrentProfile } from "./lib/auth";
 
 export const getStats = query({
   handler: async (ctx) => {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) return null;
-
-    // Find profile by userId (not email, since email is not in JWT)
-    const userId = identity.subject.split("|")[0];
-    const profile = await ctx.db
-      .query("profiles")
-      .withIndex("by_userId", (q) => q.eq("userId", userId as Id<"users">))
-      .first();
-
+    const profile = await getCurrentProfile(ctx);
     if (!profile) return null;
 
-    // For Phase 1, return placeholder stats
-    // These will be calculated from real data in Phase 3
+    // Phase 1: placeholder stats
+    // Real calculations will be added in Phase 3
     return {
       appointmentsToday: 0,
       appointmentsWeek: 0,
