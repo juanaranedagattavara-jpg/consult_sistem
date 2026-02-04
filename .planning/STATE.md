@@ -3,14 +3,14 @@
 ## Current Status
 - **Milestone:** v1.0
 - **Phase:** 01 - Foundation + Auth + Onboarding
-- **Plan:** 12 of 36 complete
+- **Plan:** 13 of 36 complete
 - **Status:** In progress
-- **Last activity:** 2026-02-04 - Completed 01-12-PLAN.md
+- **Last activity:** 2026-02-04 - Completed 01-13-PLAN.md
 
 ## Progress
 | Phase | Status | Plans | Progress |
 |-------|--------|-------|----------|
-| 01    | In progress | 12/36 | 33% |
+| 01    | In progress | 13/36 | 36% |
 | 02    | ○      | 0/?   | 0% |
 | 03    | ○      | 0/?   | 0% |
 | 04    | ○      | 0/?   | 0% |
@@ -56,7 +56,7 @@
 |------|------|------------|--------|
 | 01-11 | Create FileUpload component | 01-06, 01-08 | DONE |
 | 01-12 | Create useFileUrl hook | 01-08 | DONE |
-| 01-13 | Create auth forms | 01-07, 01-10 | ○ |
+| 01-13 | Create auth forms | 01-07, 01-10 | DONE |
 
 ### Wave 8 - Auth Pages
 | Plan | Name | Depends On | Status |
@@ -188,12 +188,17 @@
 - Theme-aware colors (muted-foreground, destructive) for dark mode
 - Blob URL preview with loading overlay
 
+### Auth Forms (01-13)
+- react-hook-form with zodResolver for type-safe validation
+- Two-step register flow: create user/clinic then auto-sign-in
+- Login redirects to /dashboard, register redirects to /onboarding
+
 ## Blockers
 None
 
 ## Session Continuity
-- **Last session:** 2026-02-04T07:07Z
-- **Stopped at:** Completed 01-11-PLAN.md
+- **Last session:** 2026-02-04T07:08Z
+- **Stopped at:** Completed 01-13-PLAN.md
 - **Resume file:** None
 
 ## Notes
