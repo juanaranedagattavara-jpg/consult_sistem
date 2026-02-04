@@ -3,14 +3,14 @@
 ## Current Status
 - **Milestone:** v1.0
 - **Phase:** 01 - Foundation + Auth + Onboarding
-- **Plan:** 13 of 36 complete
+- **Plan:** 14 of 36 complete
 - **Status:** In progress
-- **Last activity:** 2026-02-04 - Completed 01-13-PLAN.md
+- **Last activity:** 2026-02-04 - Completed 01-14-PLAN.md
 
 ## Progress
 | Phase | Status | Plans | Progress |
 |-------|--------|-------|----------|
-| 01    | In progress | 13/36 | 36% |
+| 01    | In progress | 14/36 | 39% |
 | 02    | ○      | 0/?   | 0% |
 | 03    | ○      | 0/?   | 0% |
 | 04    | ○      | 0/?   | 0% |
@@ -61,7 +61,7 @@
 ### Wave 8 - Auth Pages
 | Plan | Name | Depends On | Status |
 |------|------|------------|--------|
-| 01-14 | Create auth pages | 01-13, 01-06 | ○ |
+| 01-14 | Create auth pages | 01-13, 01-06 | DONE |
 
 ### Wave 9 - Onboarding Foundation
 | Plan | Name | Depends On | Status |
@@ -193,12 +193,17 @@
 - Two-step register flow: create user/clinic then auto-sign-in
 - Login redirects to /dashboard, register redirects to /onboarding
 
+### Auth Pages (01-14)
+- Route group (auth) for shared layout without URL segment
+- Centered layout with ConsultSystem branding
+- Root redirect to /login via Next.js server-side redirect
+
 ## Blockers
 None
 
 ## Session Continuity
-- **Last session:** 2026-02-04T07:08Z
-- **Stopped at:** Completed 01-13-PLAN.md
+- **Last session:** 2026-02-04T07:10Z
+- **Stopped at:** Completed 01-14-PLAN.md
 - **Resume file:** None
 
 ## Notes
