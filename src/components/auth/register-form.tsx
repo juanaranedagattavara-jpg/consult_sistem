@@ -36,11 +36,24 @@ export function RegisterForm() {
         flow: "signUp",
       });
 
-      // Step 2: Create clinic and user record in our tables
-      await createClinicForUser({
-        name: data.name,
-        email: data.email,
-      });
+      // Wait for auth user to be fully created
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      // Step 2: Create clinic and user record in our tables (with retry)
+      let retries = 3;
+      while (retries > 0) {
+        try {
+          await createClinicForUser({
+            name: data.name,
+            email: data.email,
+          });
+          break;
+        } catch (e) {
+          retries--;
+          if (retries === 0) throw e;
+          await new Promise((resolve) => setTimeout(resolve, 500));
+        }
+      }
 
       router.push("/onboarding");
     } catch (error: unknown) {

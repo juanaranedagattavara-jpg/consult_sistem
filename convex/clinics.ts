@@ -1,5 +1,6 @@
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
+import { Id } from "./_generated/dataModel";
 
 export const getClinic = query({
   args: { clinicId: v.id("clinics") },
@@ -161,9 +162,10 @@ export const completeOnboarding = mutation({
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) throw new Error("No autenticado");
 
+    const userId = identity.subject.split("|")[0];
     const profile = await ctx.db
       .query("profiles")
-      .withIndex("by_email", (q) => q.eq("email", identity.email!))
+      .withIndex("by_userId", (q) => q.eq("userId", userId as Id<"users">))
       .first();
 
     if (!profile) throw new Error("Perfil no encontrado");

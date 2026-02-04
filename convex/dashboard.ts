@@ -1,14 +1,16 @@
 import { query } from "./_generated/server";
+import { Id } from "./_generated/dataModel";
 
 export const getStats = query({
   handler: async (ctx) => {
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) return null;
 
-    // Find profile
+    // Find profile by userId (not email, since email is not in JWT)
+    const userId = identity.subject.split("|")[0];
     const profile = await ctx.db
       .query("profiles")
-      .withIndex("by_email", (q) => q.eq("email", identity.email!))
+      .withIndex("by_userId", (q) => q.eq("userId", userId as Id<"users">))
       .first();
 
     if (!profile) return null;

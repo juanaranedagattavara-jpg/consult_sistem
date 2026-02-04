@@ -1,15 +1,19 @@
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
+import { Id } from "./_generated/dataModel";
 
 export const getCurrentUser = query({
   handler: async (ctx) => {
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) return null;
 
-    // Get profile by email
+    // Extract userId from subject (format: "userId|sessionId")
+    const userId = identity.subject.split("|")[0];
+
+    // Get profile by userId (not email, since email is not in JWT)
     const profile = await ctx.db
       .query("profiles")
-      .withIndex("by_email", (q) => q.eq("email", identity.email!))
+      .withIndex("by_userId", (q) => q.eq("userId", userId as Id<"users">))
       .first();
 
     if (!profile) return null;
@@ -29,12 +33,6 @@ export const createClinicForUser = mutation({
     email: v.string(),
   },
   handler: async (ctx, args) => {
-    // Verify user is authenticated
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) {
-      throw new Error("No autenticado");
-    }
-
     // Check if profile already exists (prevent duplicates)
     const existing = await ctx.db
       .query("profiles")
@@ -46,14 +44,30 @@ export const createClinicForUser = mutation({
       return { profileId: existing._id, clinicId: existing.clinicId };
     }
 
-    // Get the Convex Auth user ID from the users table
-    const authUser = await ctx.db
-      .query("users")
-      .filter((q) => q.eq(q.field("email"), args.email))
-      .first();
+    // Get the Convex Auth user ID from authAccounts table
+    // The email is stored as providerAccountId for password provider
+    const authAccounts = await ctx.db.query("authAccounts").collect();
+    console.log("authAccounts found:", authAccounts.length);
+    console.log("Looking for email:", args.email);
+    console.log("authAccounts data:", JSON.stringify(authAccounts.map((a: Record<string, unknown>) => ({
+      id: a._id,
+      providerAccountId: a.providerAccountId,
+      provider: a.provider
+    }))));
 
+    const authAccount = authAccounts.find(
+      (a: { providerAccountId?: string }) => a.providerAccountId === args.email
+    );
+
+    if (!authAccount) {
+      // User might not be created yet, throw retryable error
+      throw new Error(`Usuario de autenticación no encontrado. Email buscado: ${args.email}. Cuentas disponibles: ${authAccounts.length}`);
+    }
+
+    // Get the user record linked to this auth account
+    const authUser = await ctx.db.get(authAccount.userId);
     if (!authUser) {
-      throw new Error("Usuario de autenticación no encontrado");
+      throw new Error("Usuario no encontrado en la base de datos.");
     }
 
     // Create clinic draft
@@ -121,9 +135,10 @@ export const updateProfile = mutation({
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) throw new Error("No autenticado");
 
+    const userId = identity.subject.split("|")[0];
     const profile = await ctx.db
       .query("profiles")
-      .withIndex("by_email", (q) => q.eq("email", identity.email!))
+      .withIndex("by_userId", (q) => q.eq("userId", userId as Id<"users">))
       .first();
 
     if (!profile) throw new Error("Perfil no encontrado");
