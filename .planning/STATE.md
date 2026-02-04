@@ -3,14 +3,14 @@
 ## Current Status
 - **Milestone:** v1.0
 - **Phase:** 01 - Foundation + Auth + Onboarding
-- **Plan:** 18 of 36 complete
+- **Plan:** 20 of 36 complete
 - **Status:** In progress
-- **Last activity:** 2026-02-04 - Completed 01-17-PLAN.md
+- **Last activity:** 2026-02-04 - Completed 01-20-PLAN.md
 
 ## Progress
 | Phase | Status | Plans | Progress |
 |-------|--------|-------|----------|
-| 01    | In progress | 18/36 | 50% |
+| 01    | In progress | 19/36 | 53% |
 | 02    | ○      | 0/?   | 0% |
 | 03    | ○      | 0/?   | 0% |
 | 04    | ○      | 0/?   | 0% |
@@ -73,10 +73,10 @@
 | Plan | Name | Depends On | Status |
 |------|------|------------|--------|
 | 01-17 | Create onboarding steps 1-2 | 01-15, 01-16 | DONE |
-| 01-18 | Create onboarding step 3 (branding) | 01-15, 01-16, 01-11 | ○ |
-| 01-19 | Create onboarding step 4 (schedule) | 01-15, 01-16 | ○ |
+| 01-18 | Create onboarding step 3 (branding) | 01-15, 01-16, 01-11 | DONE |
+| 01-19 | Create onboarding step 4 (schedule) | 01-15, 01-16 | DONE |
 | 01-20 | Create onboarding step 5 (setup) | 01-15, 01-16 | ○ |
-| 01-21 | Create progress bar component | 01-04 | ○ |
+| 01-21 | Create progress bar component | 01-04 | DONE |
 
 ### Wave 11 - Onboarding Page
 | Plan | Name | Depends On | Status |
@@ -207,6 +207,17 @@
 - Theme-aware colors (muted-foreground, destructive) for dark mode
 - Disabled continue button while user data loads from Convex
 - Step pattern: Card wrapper with onNext/onBack props
+
+### Onboarding Step 3 Branding (01-18)
+- Dual color input (type="color" + text) for precise control
+- Default colors: primary #2563eb (blue), secondary #64748b (slate)
+- Logo upload is optional (not all clinics have logo ready)
+- Live preview updates via form.watch()
+
+### Onboarding Step 4 Schedule (01-19)
+- Day toggle buttons with theme-aware styling (bg-background/bg-muted)
+- Optional lunch break with checkbox toggle
+- Uses scheduleSchema for validation
 
 ## Blockers
 None
