@@ -1,7 +1,7 @@
 # Requirements: ConsultSystem
 
-**Defined:** 2026-02-03
-**Core Value:** Los pacientes confirman sus citas automaticamente y las horas canceladas se recuperan via lista de espera inteligente.
+**Defined:** 2026-02-04
+**Core Value:** Los pacientes confirman sus citas automaticamente via WhatsApp y las horas canceladas se recuperan mediante lista de espera inteligente.
 
 ## v1 Requirements
 
@@ -10,194 +10,176 @@
 - [ ] **AUTH-01**: Usuario puede registrarse con email y password
 - [ ] **AUTH-02**: Usuario puede iniciar sesion
 - [ ] **AUTH-03**: Usuario puede cerrar sesion
-- [ ] **AUTH-04**: Sesion persiste entre recargas del navegador
+- [ ] **AUTH-04**: Sesion persiste entre recargas (30 dias con "recordar")
 - [ ] **AUTH-05**: Sistema soporta 2 roles: Admin y Staff
+- [ ] **AUTH-06**: Magic link login opcional
 
-### Clinics (CLIN)
+### Onboarding (ONBO)
 
-- [ ] **CLIN-01**: Admin puede crear/editar datos de la clinica
-- [ ] **CLIN-02**: Clinica tiene configuracion de bot (tono, prompts)
-- [ ] **CLIN-03**: Clinica tiene configuracion de tiempos (confirmacion, recordatorio, timeout)
-- [ ] **CLIN-04**: Clinica tiene campos de paciente configurables
+- [ ] **ONBO-01**: Wizard paso 1 - Registro inicial (email, password, nombre)
+- [ ] **ONBO-02**: Wizard paso 2 - Datos clinica (nombre, RUT, direccion, telefono, timezone)
+- [ ] **ONBO-03**: Wizard paso 3 - White label (logo, colores primario/secundario)
+- [ ] **ONBO-04**: Wizard paso 4 - Config operacional (horarios, dias, duracion slot)
+- [ ] **ONBO-05**: Wizard paso 5 - Setup rapido (primer profesional, primer servicio)
+- [ ] **ONBO-06**: Progress bar visible en todos los pasos
+- [ ] **ONBO-07**: Permitir saltar onboarding y completar despues
+
+### Clinic Configuration (CLIN)
+
+- [ ] **CLIN-01**: Admin puede editar datos de la clinica
+- [ ] **CLIN-02**: Config bot: tono (formal/casual/amigable), prompts, FAQs, mensajes
+- [ ] **CLIN-03**: Config timing: confirmacion, recordatorio, reintentos, timeout waitlist
+- [ ] **CLIN-04**: Campos personalizados pacientes (JSON schema builder)
+
+### Dashboard (DASH)
+
+- [ ] **DASH-01**: Layout con sidebar colapsable
+- [ ] **DASH-02**: Header con logo clinica + user dropdown
+- [ ] **DASH-03**: Stats cards: citas hoy, citas semana, tasa confirmacion, horas recuperadas
+- [ ] **DASH-04**: Quick actions: nueva cita, ver agenda, ver lista espera
+- [ ] **DASH-05**: Proximas citas (lista de 5)
+- [ ] **DASH-06**: Real-time updates via Convex subscriptions
 
 ### Professionals (PROF)
 
-- [ ] **PROF-01**: Admin puede crear/editar/eliminar profesionales
-- [ ] **PROF-02**: Profesional puede conectar su Google Calendar via OAuth
-- [ ] **PROF-03**: Profesional tiene horarios de atencion configurables
-- [ ] **PROF-04**: Sistema lee disponibilidad real del calendario
+- [ ] **PROF-01**: CRUD completo de profesionales
+- [ ] **PROF-02**: Campos: nombre, especialidad, email, telefono, RUT, bio, avatar
+- [ ] **PROF-03**: Google Calendar OAuth 2.0 (connect/disconnect)
+- [ ] **PROF-04**: Refresh token encrypted en Convex
+- [ ] **PROF-05**: Horarios de atencion por dia (start/end/lunch)
+- [ ] **PROF-06**: Excepciones (vacaciones, feriados, enfermedad)
+- [ ] **PROF-07**: Estado active/inactive
 
 ### Services (SERV)
 
-- [ ] **SERV-01**: Admin puede crear/editar/eliminar servicios
-- [ ] **SERV-02**: Servicio tiene nombre, descripcion, duracion, precio
-- [ ] **SERV-03**: Servicio tiene instrucciones pre-cita opcionales
+- [ ] **SERV-01**: CRUD completo de servicios
+- [ ] **SERV-02**: Campos: nombre, descripcion, duracion, precio, categoria, color
+- [ ] **SERV-03**: Instrucciones pre-cita opcionales
+- [ ] **SERV-04**: Multi-select profesionales que pueden realizar
+- [ ] **SERV-05**: Estado active/inactive
+
+### Availability (AVAI)
+
+- [ ] **AVAI-01**: API retorna slots disponibles reales
+- [ ] **AVAI-02**: Considera horarios de atencion del profesional
+- [ ] **AVAI-03**: Considera eventos existentes en Google Calendar
+- [ ] **AVAI-04**: Considera excepciones (vacaciones/feriados)
+- [ ] **AVAI-05**: Considera duracion del servicio
 
 ### Patients (PATI)
 
-- [ ] **PATI-01**: Usuario puede crear/editar pacientes
-- [ ] **PATI-02**: Paciente tiene campos basicos: nombre, telefono, email
-- [ ] **PATI-03**: Paciente tiene campos personalizados (configurable por clinica)
-- [ ] **PATI-04**: Sistema registra historial de visitas del paciente
+- [ ] **PATI-01**: CRUD completo de pacientes
+- [ ] **PATI-02**: Campos base: nombre, email, telefono (+56 9 XXXX XXXX), RUT, fecha nac, genero
+- [ ] **PATI-03**: Campos personalizados dinamicos segun config clinica
+- [ ] **PATI-04**: Notas privadas con historial de cambios
+- [ ] **PATI-05**: Historial de visitas
+- [ ] **PATI-06**: Estados: active, inactive, blocked
+- [ ] **PATI-07**: Metricas: total visitas, no-shows
+
+### Patient Import (IMPO)
+
+- [ ] **IMPO-01**: Upload CSV con drag & drop
+- [ ] **IMPO-02**: Template CSV descargable
+- [ ] **IMPO-03**: Mapeo de columnas visual
+- [ ] **IMPO-04**: Deteccion de duplicados (email/telefono)
+- [ ] **IMPO-05**: Preview antes de importar
+- [ ] **IMPO-06**: Import en background con notificacion
 
 ### Appointments (APPT)
 
-- [ ] **APPT-01**: Usuario puede crear cita desde dashboard
-- [ ] **APPT-02**: Cita se crea en Google Calendar del profesional
-- [ ] **APPT-03**: Cita tiene estados: scheduled, confirmed, cancelled, completed, no_show
-- [ ] **APPT-04**: Usuario puede ver agenda diaria/semanal por profesional
-- [ ] **APPT-05**: Usuario puede cancelar/modificar citas
+- [ ] **APPT-01**: Wizard 4 pasos: paciente, servicio, profesional+fecha, horario
+- [ ] **APPT-02**: Crear paciente inline si no existe
+- [ ] **APPT-03**: Estados: scheduled, confirmed, cancelled, completed, no_show
+- [ ] **APPT-04**: Crear evento en Google Calendar al agendar
+- [ ] **APPT-05**: Actualizar evento en Google Calendar al modificar
+- [ ] **APPT-06**: Eliminar evento en Google Calendar al cancelar
+- [ ] **APPT-07**: Notas opcionales en cita
+- [ ] **APPT-08**: Source tracking: dashboard, whatsapp, waitlist
 
-### Chatbot (CHAT)
+### Appointment Actions (ACTN)
 
-- [ ] **CHAT-01**: Bot responde FAQs configuradas por la clinica
-- [ ] **CHAT-02**: Bot detecta intencion: agendar cita
-- [ ] **CHAT-03**: Bot detecta intencion: consultar informacion
-- [ ] **CHAT-04**: Bot detecta intencion: cancelar/modificar cita
-- [ ] **CHAT-05**: Bot detecta intencion: consultar estado de cita
-- [ ] **CHAT-06**: Bot detecta intencion: queja/urgencia y escala a humano
-- [ ] **CHAT-07**: Bot escala cuando detecta paciente frustrado
-- [ ] **CHAT-08**: Bot escala cuando paciente pide hablar con humano
-- [ ] **CHAT-09**: Bot escala cuando paciente es especial (nino, condicion)
+- [ ] **ACTN-01**: Modificar cita (fecha/hora/profesional/servicio)
+- [ ] **ACTN-02**: Cancelar cita con razon
+- [ ] **ACTN-03**: Marcar completada (solo citas pasadas)
+- [ ] **ACTN-04**: Marcar no-show (solo citas pasadas)
 
-### Booking (BOOK)
+### Visual Agenda (AGEN)
 
-- [ ] **BOOK-01**: Paciente puede agendar via WhatsApp
-- [ ] **BOOK-02**: Bot muestra disponibilidad real del profesional
-- [ ] **BOOK-03**: Bot ofrece horarios alternativos si no hay disponibilidad
-- [ ] **BOOK-04**: Bot ofrece agregar a lista de espera si esta lleno
-- [ ] **BOOK-05**: Cita agendada via bot aparece en dashboard
+- [ ] **AGEN-01**: FullCalendar con vistas: dia, semana, mes, lista
+- [ ] **AGEN-02**: Filtros: por profesional, por estado, por servicio
+- [ ] **AGEN-03**: Eventos coloreados por servicio
+- [ ] **AGEN-04**: Click evento abre drawer con detalles
+- [ ] **AGEN-05**: Business hours y lunch visible
+- [ ] **AGEN-06**: Real-time updates
 
-### Confirmations (CONF)
+### HTTP API (HTTP)
 
-- [ ] **CONF-01**: Sistema envia confirmacion X horas antes (configurable)
-- [ ] **CONF-02**: Paciente puede confirmar respondiendo al mensaje
-- [ ] **CONF-03**: Paciente puede cancelar respondiendo al mensaje
-- [ ] **CONF-04**: Sistema reintenta si no responde (configurable)
-- [ ] **CONF-05**: Si no confirma, sistema marca como no_confirmada y activa lista espera
-
-### Reminders (REMI)
-
-- [ ] **REMI-01**: Sistema envia recordatorio Y horas antes (configurable)
-- [ ] **REMI-02**: Recordatorio incluye hora, direccion, instrucciones pre-cita
-
-### Waitlist (WAIT)
-
-- [ ] **WAIT-01**: Paciente puede agregarse a lista de espera
-- [ ] **WAIT-02**: Sistema detecta cuando se libera una hora
-- [ ] **WAIT-03**: Sistema notifica a pacientes en lista por orden de prioridad
-- [ ] **WAIT-04**: Paciente tiene timeout para responder (configurable)
-- [ ] **WAIT-05**: Si paciente confirma, se asigna la hora automaticamente
-- [ ] **WAIT-06**: Si no responde, pasa al siguiente en la lista
-- [ ] **WAIT-07**: Dashboard muestra lista de espera activa
-
-### Analytics (ANAL)
-
-- [ ] **ANAL-01**: Dashboard muestra tasa de no-show
-- [ ] **ANAL-02**: Dashboard muestra tasa de confirmacion
-- [ ] **ANAL-03**: Dashboard muestra horas recuperadas por lista de espera
-- [ ] **ANAL-04**: Dashboard muestra conversaciones bot vs escaladas
-- [ ] **ANAL-05**: Dashboard muestra citas del dia/semana
+- [ ] **HTTP-01**: GET /api/professionals
+- [ ] **HTTP-02**: GET /api/services
+- [ ] **HTTP-03**: GET /api/availability
+- [ ] **HTTP-04**: POST /api/appointments
+- [ ] **HTTP-05**: PATCH /api/appointments/:id/status
+- [ ] **HTTP-06**: GET /api/patients/search
+- [ ] **HTTP-07**: POST /api/patients
+- [ ] **HTTP-08**: Autenticacion via API key en header
 
 ## v2 Requirements
 
-### Post-Consultation (POST)
+### Background Workers (WORK)
 
-- **POST-01**: Sistema envia mensaje post-consulta (satisfaccion)
-- **POST-02**: Si experiencia positiva, solicita resena Google
-- **POST-03**: Sistema envia instrucciones post-tratamiento
+- **WORK-01**: BullMQ worker para confirmaciones
+- **WORK-02**: BullMQ worker para recordatorios
+- **WORK-03**: Reintentos configurables
 
-### Reactivation (REAC)
+### Waitlist (WAIT)
 
-- **REAC-01**: Sistema detecta pacientes inactivos (X meses sin visita)
-- **REAC-02**: Sistema envia mensaje de reactivacion
-- **REAC-03**: Mensaje ofrece horarios disponibles
+- **WAIT-01**: Paciente puede agregarse a lista de espera
+- **WAIT-02**: Sistema detecta cuando se libera hora
+- **WAIT-03**: Notifica por orden de prioridad
+- **WAIT-04**: Timeout configurable para respuesta
+- **WAIT-05**: Asignacion automatica
 
-### Advanced Analytics (ADVN)
+### Analytics (ANAL)
 
-- **ADVN-01**: Graficos de tendencias mensuales
-- **ADVN-02**: Exportacion de reportes
-- **ADVN-03**: Comparativa antes/despues del sistema
+- **ANAL-01**: Tasa de no-show
+- **ANAL-02**: Tasa de confirmacion
+- **ANAL-03**: Horas recuperadas via waitlist
+- **ANAL-04**: Ratio bot/humano
 
 ## Out of Scope
 
 | Feature | Reason |
 |---------|--------|
-| Pagos/facturacion | Alta complejidad, no core para agendamiento |
-| App movil nativa | Web responsive suficiente para MVP |
-| Multi-idioma | Solo espanol chileno para mercado inicial |
-| WhatsApp API oficial | Chatwoot funciona, migrar si escala |
-| Video consultas | Fuera del scope de agendamiento |
-| Integracion con fichas clinicas | Datos sensibles, regulacion compleja |
+| Multi-tenant | Complejidad inicial, v2 |
+| Pagos/facturacion | Alta complejidad, no core |
+| App movil nativa | Web responsive suficiente |
+| Video consultas | Fuera del scope |
+| Multi-idioma | Solo espanol chileno MVP |
+| Drag & drop en agenda | v2, complejidad UI |
 
 ## Traceability
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AUTH-01 | Phase 1 | Pending |
-| AUTH-02 | Phase 1 | Pending |
-| AUTH-03 | Phase 1 | Pending |
-| AUTH-04 | Phase 1 | Pending |
-| AUTH-05 | Phase 1 | Pending |
-| CLIN-01 | Phase 1 | Pending |
-| CLIN-02 | Phase 1 | Pending |
-| CLIN-03 | Phase 1 | Pending |
-| CLIN-04 | Phase 1 | Pending |
-| PROF-01 | Phase 2 | Pending |
-| PROF-02 | Phase 2 | Pending |
-| PROF-03 | Phase 2 | Pending |
-| PROF-04 | Phase 2 | Pending |
-| SERV-01 | Phase 2 | Pending |
-| SERV-02 | Phase 2 | Pending |
-| SERV-03 | Phase 2 | Pending |
-| PATI-01 | Phase 3 | Pending |
-| PATI-02 | Phase 3 | Pending |
-| PATI-03 | Phase 3 | Pending |
-| PATI-04 | Phase 3 | Pending |
-| APPT-01 | Phase 3 | Pending |
-| APPT-02 | Phase 3 | Pending |
-| APPT-03 | Phase 3 | Pending |
-| APPT-04 | Phase 3 | Pending |
-| APPT-05 | Phase 3 | Pending |
-| CHAT-01 | Phase 4 | Pending |
-| CHAT-02 | Phase 4 | Pending |
-| CHAT-03 | Phase 4 | Pending |
-| CHAT-04 | Phase 4 | Pending |
-| CHAT-05 | Phase 4 | Pending |
-| CHAT-06 | Phase 4 | Pending |
-| CHAT-07 | Phase 4 | Pending |
-| CHAT-08 | Phase 4 | Pending |
-| CHAT-09 | Phase 4 | Pending |
-| BOOK-01 | Phase 4 | Pending |
-| BOOK-02 | Phase 4 | Pending |
-| BOOK-03 | Phase 4 | Pending |
-| BOOK-04 | Phase 4 | Pending |
-| BOOK-05 | Phase 4 | Pending |
-| CONF-01 | Phase 5 | Pending |
-| CONF-02 | Phase 5 | Pending |
-| CONF-03 | Phase 5 | Pending |
-| CONF-04 | Phase 5 | Pending |
-| CONF-05 | Phase 5 | Pending |
-| REMI-01 | Phase 5 | Pending |
-| REMI-02 | Phase 5 | Pending |
-| WAIT-01 | Phase 6 | Pending |
-| WAIT-02 | Phase 6 | Pending |
-| WAIT-03 | Phase 6 | Pending |
-| WAIT-04 | Phase 6 | Pending |
-| WAIT-05 | Phase 6 | Pending |
-| WAIT-06 | Phase 6 | Pending |
-| WAIT-07 | Phase 6 | Pending |
-| ANAL-01 | Phase 7 | Pending |
-| ANAL-02 | Phase 7 | Pending |
-| ANAL-03 | Phase 7 | Pending |
-| ANAL-04 | Phase 7 | Pending |
-| ANAL-05 | Phase 7 | Pending |
+| AUTH-01..06 | Phase 1 | Pending |
+| ONBO-01..07 | Phase 1 | Pending |
+| CLIN-01..04 | Phase 1 | Pending |
+| DASH-01..06 | Phase 1 | Pending |
+| PROF-01..07 | Phase 2 | Pending |
+| SERV-01..05 | Phase 2 | Pending |
+| AVAI-01..05 | Phase 2 | Pending |
+| PATI-01..07 | Phase 3 | Pending |
+| IMPO-01..06 | Phase 3 | Pending |
+| APPT-01..08 | Phase 3 | Pending |
+| ACTN-01..04 | Phase 3 | Pending |
+| AGEN-01..06 | Phase 3 | Pending |
+| HTTP-01..08 | Phase 4 | Pending |
 
 **Coverage:**
-- v1 requirements: 47 total
-- Mapped to phases: 47
+- v1 requirements: 53 total
+- Mapped to phases: 53
 - Unmapped: 0
 
 ---
-*Requirements defined: 2026-02-03*
-*Last updated: 2026-02-03 after initial definition*
+*Requirements defined: 2026-02-04*
+*Last updated: 2026-02-04 after initialization*

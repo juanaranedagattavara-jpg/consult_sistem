@@ -1,6 +1,6 @@
 {
-  "mode": "yolo",
-  "depth": "standard",
+  "mode": "interactive",
+  "depth": "comprehensive",
   "parallelization": true,
   "commit_docs": true,
   "model_profile": "quality",

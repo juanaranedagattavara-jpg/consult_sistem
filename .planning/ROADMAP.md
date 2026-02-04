@@ -1,68 +1,73 @@
 # Roadmap: ConsultSystem
 
-**Created:** 2026-02-03
-**Phases:** 7
-**Requirements:** 47 mapped
+**Created:** 2026-02-04
+**Phases:** 4
+**Requirements:** 53 mapped
 
 ## Phase Overview
 
 | # | Phase | Goal | Requirements | Status |
 |---|-------|------|--------------|--------|
-| 1 | Foundation | Dashboard base con auth y config de clinica | AUTH-01..05, CLIN-01..04 | Pending |
-| 2 | Team & Services | Gestion de profesionales y servicios | PROF-01..04, SERV-01..03 | Pending |
-| 3 | Patients & Appointments | CRUD pacientes y citas con calendario | PATI-01..04, APPT-01..05 | Pending |
-| 4 | Chatbot & Booking | Bot WhatsApp con reserva de horas | CHAT-01..09, BOOK-01..05 | Pending |
-| 5 | Confirmations & Reminders | Automatizacion de mensajes pre-cita | CONF-01..05, REMI-01..02 | Pending |
-| 6 | Waitlist | Lista de espera inteligente | WAIT-01..07 | Pending |
-| 7 | Analytics | Dashboard de metricas | ANAL-01..05 | Pending |
+| 1 | Foundation | Auth + Onboarding + Dashboard base | AUTH, ONBO, CLIN, DASH (23 reqs) | Pending |
+| 2 | Team & Calendar | Profesionales + Servicios + Google Calendar | PROF, SERV, AVAI (17 reqs) | Pending |
+| 3 | Patients & Appointments | CRUD pacientes + Citas + Agenda visual | PATI, IMPO, APPT, ACTN, AGEN (27 reqs) | Pending |
+| 4 | n8n Integration | HTTP API para conectar workflow n8n | HTTP (8 reqs) | Pending |
 
 ---
 
 ## Phase 1: Foundation
 
-**Goal:** Dashboard base con autenticacion y configuracion de clinica
+**Goal:** Sistema base con autenticacion profesional, onboarding wizard, y dashboard operativo.
 
 **Requirements:**
-- AUTH-01: Usuario puede registrarse con email y password
-- AUTH-02: Usuario puede iniciar sesion
-- AUTH-03: Usuario puede cerrar sesion
-- AUTH-04: Sesion persiste entre recargas
-- AUTH-05: Sistema soporta 2 roles: Admin y Staff
-- CLIN-01: Admin puede crear/editar datos de la clinica
-- CLIN-02: Clinica tiene configuracion de bot
-- CLIN-03: Clinica tiene configuracion de tiempos
-- CLIN-04: Clinica tiene campos de paciente configurables
+- AUTH-01..06: Autenticacion completa
+- ONBO-01..07: Onboarding wizard 5 pasos
+- CLIN-01..04: Configuracion de clinica
+- DASH-01..06: Dashboard con stats real-time
 
 **Success Criteria:**
 1. Usuario puede registrarse, login, logout
-2. Sesion persiste al recargar pagina
-3. Admin puede editar configuracion de clinica
-4. Staff no puede acceder a configuracion
-5. Convex DB tiene tablas: users, clinics
+2. Sesion persiste 30 dias con "recordar sesion"
+3. Admin vs Staff tienen permisos diferenciados
+4. Onboarding wizard completo con progress bar
+5. Dashboard muestra stats en tiempo real
+6. White label operativo (logo + colores se aplican)
+7. Settings multi-tab funcional
+
+**Technical Notes:**
+- Convex Auth para session management
+- Convex File Storage para logos
+- shadcn/ui para toda la UI
+- Zod validation en todos los forms
+- TypeScript strict, no any
 
 **Dependencies:** None (first phase)
 
 ---
 
-## Phase 2: Team & Services
+## Phase 2: Team & Calendar
 
-**Goal:** Gestion de profesionales y servicios de la clinica
+**Goal:** Gestion de equipo medico con integracion Google Calendar bidireccional.
 
 **Requirements:**
-- PROF-01: Admin puede crear/editar/eliminar profesionales
-- PROF-02: Profesional puede conectar Google Calendar via OAuth
-- PROF-03: Profesional tiene horarios de atencion configurables
-- PROF-04: Sistema lee disponibilidad real del calendario
-- SERV-01: Admin puede crear/editar/eliminar servicios
-- SERV-02: Servicio tiene nombre, descripcion, duracion, precio
-- SERV-03: Servicio tiene instrucciones pre-cita opcionales
+- PROF-01..07: CRUD profesionales + OAuth
+- SERV-01..05: CRUD servicios
+- AVAI-01..05: Availability API
 
 **Success Criteria:**
-1. Admin puede crear profesional con nombre y especialidad
-2. Profesional puede conectar su Google Calendar (OAuth flow)
+1. Admin puede crear profesional con datos completos
+2. Profesional conecta Google Calendar (OAuth flow)
 3. Sistema muestra disponibilidad real del calendario
-4. Admin puede crear servicio con duracion
-5. Horarios de atencion se respetan al mostrar disponibilidad
+4. Horarios de almuerzo bloquean slots
+5. Excepciones (vacaciones) bloquean dias completos
+6. Servicios con duracion afectan slots disponibles
+7. Tabla profesionales con status de calendar
+
+**Technical Notes:**
+- Google Calendar API v3
+- Refresh token encrypted en Convex
+- Actions para llamadas externas
+- Time pickers con shadcn/ui
 
 **Dependencies:** Phase 1 (auth, clinic context)
 
@@ -70,125 +75,81 @@
 
 ## Phase 3: Patients & Appointments
 
-**Goal:** CRUD completo de pacientes y citas con sincronizacion de calendario
+**Goal:** Sistema completo de gestion de pacientes y citas con sync Google Calendar.
 
 **Requirements:**
-- PATI-01: Usuario puede crear/editar pacientes
-- PATI-02: Paciente tiene campos basicos
-- PATI-03: Paciente tiene campos personalizados
-- PATI-04: Sistema registra historial de visitas
-- APPT-01: Usuario puede crear cita desde dashboard
-- APPT-02: Cita se crea en Google Calendar
-- APPT-03: Cita tiene estados
-- APPT-04: Usuario puede ver agenda diaria/semanal
-- APPT-05: Usuario puede cancelar/modificar citas
+- PATI-01..07: CRUD pacientes
+- IMPO-01..06: Import CSV
+- APPT-01..08: Sistema de citas
+- ACTN-01..04: Acciones sobre citas
+- AGEN-01..06: Agenda visual
 
 **Success Criteria:**
-1. Usuario puede crear paciente con campos configurados
-2. Usuario puede crear cita seleccionando paciente, profesional, servicio, horario
-3. Cita aparece en Google Calendar del profesional
-4. Vista de agenda muestra citas por dia/semana
-5. Cancelar cita actualiza estado y libera calendario
+1. Usuario puede crear paciente con campos custom
+2. Import CSV detecta duplicados, valida formato
+3. Wizard agendamiento 4 pasos funcional
+4. Cita creada aparece en Google Calendar
+5. Modificar cita actualiza Google Calendar
+6. Cancelar cita elimina de Google Calendar
+7. FullCalendar muestra citas con filtros
+8. Estados de cita con transiciones correctas
+
+**Technical Notes:**
+- FullCalendar React
+- Convex subscriptions para real-time
+- Google Calendar API create/update/delete
+- Background import con progress
 
 **Dependencies:** Phase 2 (professionals, services, calendar)
 
 ---
 
-## Phase 4: Chatbot & Booking
+## Phase 4: n8n Integration
 
-**Goal:** Bot de WhatsApp funcional con reserva de horas
-
-**Requirements:**
-- CHAT-01..09: Deteccion de intenciones y escalacion
-- BOOK-01..05: Flujo de reserva via WhatsApp
-
-**Success Criteria:**
-1. Bot responde a mensaje de WhatsApp via Chatwoot
-2. Bot detecta "quiero agendar" y ofrece profesionales
-3. Bot muestra horarios disponibles reales
-4. Paciente puede elegir horario y confirmar
-5. Cita aparece en dashboard y Google Calendar
-6. Bot escala a humano cuando corresponde
-7. Workflow n8n conectado a Convex
-
-**Dependencies:** Phase 3 (patients, appointments, calendar)
-
----
-
-## Phase 5: Confirmations & Reminders
-
-**Goal:** Automatizacion de mensajes de confirmacion y recordatorio
+**Goal:** HTTP API completa para conectar workflow n8n existente.
 
 **Requirements:**
-- CONF-01..05: Flujo de confirmacion
-- REMI-01..02: Recordatorios pre-cita
+- HTTP-01..08: Endpoints HTTP
 
 **Success Criteria:**
-1. Sistema envia mensaje de confirmacion X horas antes
-2. Paciente responde "si" y cita se marca confirmada
-3. Paciente responde "no" y cita se cancela
-4. Si no responde, sistema reintenta
-5. Despues de reintentos, marca no_confirmada
-6. Recordatorio se envia Y horas antes con detalles
+1. GET /api/professionals retorna lista
+2. GET /api/services retorna lista activos
+3. GET /api/availability retorna slots reales
+4. POST /api/appointments crea cita desde WhatsApp
+5. PATCH /api/appointments/:id/status actualiza estado
+6. GET /api/patients/search busca por telefono
+7. POST /api/patients crea desde WhatsApp
+8. API key authentication funciona
 
-**Dependencies:** Phase 4 (chatbot infrastructure, appointments)
+**Technical Notes:**
+- Convex HTTP router
+- API keys por clinica
+- Documentacion de endpoints
+- NO modificar workflow n8n, solo conectar
 
----
-
-## Phase 6: Waitlist
-
-**Goal:** Sistema de lista de espera inteligente
-
-**Requirements:**
-- WAIT-01..07: Flujo completo de lista de espera
-
-**Success Criteria:**
-1. Paciente puede agregarse a lista de espera via bot
-2. Cuando cita se cancela, sistema detecta hora libre
-3. Sistema notifica al primer paciente en lista
-4. Paciente tiene X minutos para responder
-5. Si confirma, cita se asigna automaticamente
-6. Si no responde, pasa al siguiente
-7. Dashboard muestra lista de espera activa
-
-**Dependencies:** Phase 5 (confirmations trigger waitlist)
-
----
-
-## Phase 7: Analytics
-
-**Goal:** Dashboard de metricas completo
-
-**Requirements:**
-- ANAL-01..05: Metricas del sistema
-
-**Success Criteria:**
-1. Dashboard muestra tasa de no-show del periodo
-2. Dashboard muestra tasa de confirmacion
-3. Dashboard muestra horas recuperadas via waitlist
-4. Dashboard muestra ratio bot/humano
-5. Vista de citas del dia/semana con estados
-
-**Dependencies:** Phase 6 (all data flows complete)
+**Dependencies:** Phase 3 (patients, appointments, availability)
 
 ---
 
 ## Technical Notes
 
 **Stack por fase:**
-- Phase 1-3: Next.js + Convex + shadcn/ui
-- Phase 4-6: n8n workflows + Convex HTTP API
-- Phase 7: Convex queries + charts
+- Phase 1-3: Next.js 15 + Convex + shadcn/ui
+- Phase 4: Convex HTTP API
 
-**Multi-tenant:**
-- Todas las queries filtran por clinicId
-- Context de clinica desde auth
+**Convex Schema Tables:**
+- clinics
+- users
+- professionals
+- services
+- patients
+- appointments
 
 **n8n Integration:**
-- Cada clinica tiene su instancia Docker
-- Workflow template se clona para nuevos clientes
-- Convex HTTP API para leer/escribir datos
+- Workflow existente usa Airtable
+- Reemplazar con Convex HTTP API
+- Variables: CONVEX_API_URL, CONVEX_API_KEY, CLINIC_ID
 
 ---
-*Roadmap created: 2026-02-03*
-*Last updated: 2026-02-03*
+*Roadmap created: 2026-02-04*
+*Last updated: 2026-02-04*

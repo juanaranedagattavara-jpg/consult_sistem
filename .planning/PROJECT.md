@@ -2,13 +2,11 @@
 
 ## What This Is
 
-Sistema SaaS de automatizacion para clinicas dentales y consultorios medicos (psicologos, nutricionistas, kinesiologos). Automatiza la comunicacion con pacientes via WhatsApp y la gestion completa de citas, reduciendo el trabajo manual de secretarias y mejorando la tasa de asistencia.
+Sistema SaaS enterprise de agendamiento automatico para clinicas medicas y consultorios en Chile. Automatiza confirmaciones de citas via WhatsApp, gestiona lista de espera inteligente, y sincroniza con Google Calendar. Target: clinicas dentales, psicologos, nutricionistas, kinesiologos.
 
 ## Core Value
 
-**Los pacientes confirman sus citas automaticamente y las horas canceladas se recuperan via lista de espera inteligente.**
-
-Si todo lo demas falla, esto debe funcionar: el bot confirma citas y llena horas vacias.
+**Los pacientes confirman sus citas automaticamente via WhatsApp y las horas canceladas se recuperan mediante lista de espera inteligente, reduciendo no-shows de 30% a <10% y recuperando el 70% de cancelaciones.**
 
 ## Requirements
 
@@ -18,93 +16,91 @@ Si todo lo demas falla, esto debe funcionar: el bot confirma citas y llena horas
 
 ### Active
 
-**Chatbot WhatsApp**
-- [ ] Responder FAQs 24/7 (configurable por clinica)
-- [ ] Detectar 6 intenciones: agendar, consultar info, queja, urgencia, cancelar/modificar, estado de cita
-- [ ] Escalar a humano: paciente frustrado, solicitud explicita, paciente especial
-- [ ] Tono configurable por clinica (formal/casual/custom)
+**Fase 1: Foundation + Auth + Onboarding**
+- [ ] Auth email/password con Convex Auth
+- [ ] Session management con roles (Admin/Staff)
+- [ ] Onboarding wizard 5 pasos
+- [ ] Dashboard base con stats real-time
+- [ ] Settings de clinica (bot, timing, campos custom)
+- [ ] White label (logo, colores)
 
-**Reserva de Horas**
-- [ ] Leer disponibilidad de Google Calendar
-- [ ] Soportar multiples profesionales (MVP: 2 calendarios)
-- [ ] Agendar citas via WhatsApp
-- [ ] Agregar a lista de espera si no hay disponibilidad
+**Fase 2: Profesionales + Servicios + Google Calendar**
+- [ ] CRUD profesionales con horarios configurables
+- [ ] Google Calendar OAuth 2.0 integration
+- [ ] Availability API (slots reales desde calendar)
+- [ ] CRUD servicios con duracion/precio/instrucciones
+- [ ] Excepciones (vacaciones, feriados)
 
-**Confirmaciones y Recordatorios**
-- [ ] Enviar confirmacion X horas antes (configurable)
-- [ ] Enviar recordatorio Y horas antes (configurable)
-- [ ] Reintentos configurables si no responde
-- [ ] Activar lista de espera si no confirma
+**Fase 3: Pacientes + Citas + Agenda Visual**
+- [ ] CRUD pacientes con campos custom
+- [ ] Import CSV masivo
+- [ ] Wizard agendamiento 4 pasos
+- [ ] Sync bidireccional Google Calendar
+- [ ] Vista agenda FullCalendar
+- [ ] Estados de cita (scheduled, confirmed, cancelled, completed, no_show)
 
-**Lista de Espera Inteligente**
-- [ ] Notificar automaticamente cuando se libera hora
-- [ ] Priorizar por orden de llegada
-- [ ] Timeout configurable para respuesta
-- [ ] Asignar automaticamente al que confirma primero
-
-**Dashboard**
-- [ ] Autenticacion con 2 roles (Admin + Staff)
-- [ ] CRUD de profesionales con OAuth Google Calendar
-- [ ] CRUD de servicios/tipos de cita
-- [ ] CRUD de pacientes con campos configurables
-- [ ] Vista de agenda por profesional
-- [ ] Vista de lista de espera
-- [ ] Configuracion de clinica (tono bot, tiempos, etc)
-- [ ] Metricas: no-show, confirmacion, horas recuperadas
+**Fase 4: Integracion n8n + Convex HTTP API**
+- [ ] HTTP API endpoints para n8n
+- [ ] Autenticacion API keys
+- [ ] Adaptar workflow n8n existente (Airtable -> Convex)
 
 ### Out of Scope
 
-- Seguimiento post-consulta - Fase 2 (no es core para MVP)
-- Reactivacion de pacientes inactivos - Fase 2
-- Solicitud de resenas Google - Fase 2
-- Pagos/facturacion - Complejidad alta, no core
-- App movil nativa - Web responsive es suficiente
-- Multiples idiomas - Solo espanol chileno para MVP
-- WhatsApp API oficial - Chatwoot para MVP, migrar despues
+- BullMQ workers (confirmaciones/recordatorios) - Post-MVP
+- Waitlist inteligente automatica - Post-MVP
+- Analytics dashboard avanzado - Post-MVP
+- Multi-tenant - v2
+- App movil nativa - Web responsive suficiente
+- Pagos/facturacion - Complejidad alta
 
 ## Context
 
 **Stack elegido:**
-- Frontend: Next.js 15 + shadcn/ui + Tailwind
-- Backend/DB: Convex (tiempo real, multi-tenant)
-- Workflows: n8n (1 instancia Docker por cliente)
-- WhatsApp: Chatwoot
-- Calendario: Google Calendar API + OAuth
-- IA: OpenAI GPT-4
-- Hosting: VPS propio
+- Frontend: Next.js 15 (App Router) + shadcn/ui + Tailwind + TypeScript strict
+- Backend: Convex (serverless + real-time DB + Auth + File Storage)
+- Automatizaciones: BullMQ + Redis (post-MVP), n8n (solo chatbot WhatsApp)
+- Integraciones: Google Calendar API (OAuth 2.0), OpenAI GPT-4 (via n8n), Chatwoot + WhatsApp
+- Deploy: VPS Ubuntu 24 (PM2 + Nginx), Convex Cloud
 
-**Arquitectura hibrida:**
-- Dashboard: Multi-tenant (una app, todas las clinicas)
-- n8n: Una instancia Docker por cliente (credenciales separadas)
-- Justificacion: n8n no es multi-tenant nativo, cada clinica tiene su WhatsApp/Calendar
+**Arquitectura:**
+- Single-tenant inicial (1 instalacion por clinica)
+- Next.js: UI + business logic
+- Convex: Database + real-time + mutations + HTTP API
+- n8n: SOLO chatbot WhatsApp (workflow existente, no tocar)
 
 **Flujo existente:**
-- Ya existe un workflow de n8n funcional para WhatsApp/Chatwoot
+- Workflow n8n funcional para WhatsApp/Chatwoot
 - Usa Redis para buffer de mensajes
-- Usa Airtable (a reemplazar por Convex)
-- Prompt de IA para peluqueria (adaptar a clinicas)
+- Usa Airtable (a reemplazar por Convex HTTP API)
 
 **Usuario objetivo:**
-- Clinicas dentales y consultorios en Chile
-- Secretarias que pierden horas confirmando citas
-- Duenos que quieren visibilidad de su operacion
+- Clinicas dentales: 2-8 profesionales, 200-400 citas/mes
+- Psicologos: 1-3 profesionales, 80-150 citas/mes
+- Nutricionistas/Kinesiologos: 1-5 profesionales
+
+**Pain points:**
+- Secretaria pierde 2-3 hrs/dia confirmando por telefono
+- 30% de no-shows por falta de recordatorios
+- Horas canceladas quedan vacias (no hay lista de espera)
 
 ## Constraints
 
-- **Tiempo**: Desarrollador es estudiante con tiempo limitado
-- **Mantenimiento**: Sistema debe ser autonomo, minima intervencion post-instalacion
-- **Costo VPS**: Multiples n8n en un VPS (Docker), no un servidor por cliente
-- **Soporte**: Evitar llamadas telefonicas, preferir soporte asincrono
+- **Tiempo**: 9 dias de desarrollo (4 fases)
+- **Stack**: Next.js 15 + Convex + shadcn/ui (no negociable)
+- **TypeScript**: Strict mode, no any permitido
+- **UI**: Profesional desde dia 1, mobile-responsive
+- **Idioma**: Espanol chileno en toda la UI
+- **n8n**: NO modificar workflow existente, solo conectar via HTTP API
 
 ## Key Decisions
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Convex sobre Supabase/Airtable | Tiempo real nativo, API automatica, TypeScript | - Pending |
-| Arquitectura hibrida | n8n no es multi-tenant, credenciales por instancia | - Pending |
+| Convex sobre Supabase | Tiempo real nativo, API automatica, TypeScript first | - Pending |
+| Single-tenant inicial | Menos complejidad, mas facil mantener | - Pending |
 | shadcn/ui sobre Retool | Full control, escalable, profesional | - Pending |
-| Chatwoot para MVP | Ya funciona, migrar a API oficial si escala | - Pending |
-| 2 roles simples | Admin + Staff suficiente para MVP | - Pending |
+| n8n solo para chatbot | Workflow existente funciona, no reinventar | - Pending |
+| BullMQ post-MVP | Enfocarse en core value primero | - Pending |
 
 ---
-*Last updated: 2026-02-03 after initialization*
+*Last updated: 2026-02-04 after initialization*
