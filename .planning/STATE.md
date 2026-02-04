@@ -54,7 +54,7 @@
 ### Wave 7 - Components Base
 | Plan | Name | Depends On | Status |
 |------|------|------------|--------|
-| 01-11 | Create FileUpload component | 01-06, 01-08 | ○ |
+| 01-11 | Create FileUpload component | 01-06, 01-08 | DONE |
 | 01-12 | Create useFileUrl hook | 01-08 | DONE |
 | 01-13 | Create auth forms | 01-07, 01-10 | ○ |
 
@@ -183,12 +183,17 @@
 - Identity-based user lookup via ctx.auth.getUserIdentity()
 - Return user with embedded clinic object for single-query access
 
+### FileUpload Component (01-11)
+- useId() hook for unique input IDs (multiple instances support)
+- Theme-aware colors (muted-foreground, destructive) for dark mode
+- Blob URL preview with loading overlay
+
 ## Blockers
 None
 
 ## Session Continuity
-- **Last session:** 2026-02-04T07:06Z
-- **Stopped at:** Completed 01-12-PLAN.md
+- **Last session:** 2026-02-04T07:07Z
+- **Stopped at:** Completed 01-11-PLAN.md
 - **Resume file:** None
 
 ## Notes
