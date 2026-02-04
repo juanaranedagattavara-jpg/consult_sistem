@@ -242,12 +242,17 @@
 - Theme-aware error styling (text-destructive)
 - Loading state shows centered in card
 
+### Timing Settings Form (01-25)
+- Zod validation with min/max constraints for each field
+- Helper text explains purpose and valid ranges
+- useEffect pattern for form reset when clinic data loads
+
 ## Blockers
 None
 
 ## Session Continuity
-- **Last session:** 2026-02-04T07:32Z
-- **Stopped at:** Completed 01-23-PLAN.md
+- **Last session:** 2026-02-04T07:33Z
+- **Stopped at:** Completed 01-25-PLAN.md
 - **Resume file:** None
 
 ## Notes
