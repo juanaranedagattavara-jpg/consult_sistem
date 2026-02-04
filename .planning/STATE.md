@@ -3,14 +3,14 @@
 ## Current Status
 - **Milestone:** v1.0
 - **Phase:** 01 - Foundation + Auth + Onboarding
-- **Plan:** 16 of 36 complete
+- **Plan:** 17 of 36 complete
 - **Status:** In progress
-- **Last activity:** 2026-02-04 - Completed 01-16-PLAN.md
+- **Last activity:** 2026-02-04 - Completed 01-15-PLAN.md
 
 ## Progress
 | Phase | Status | Plans | Progress |
 |-------|--------|-------|----------|
-| 01    | In progress | 16/36 | 44% |
+| 01    | In progress | 17/36 | 47% |
 | 02    | ○      | 0/?   | 0% |
 | 03    | ○      | 0/?   | 0% |
 | 04    | ○      | 0/?   | 0% |
@@ -66,7 +66,7 @@
 ### Wave 9 - Onboarding Foundation
 | Plan | Name | Depends On | Status |
 |------|------|------------|--------|
-| 01-15 | Create onboarding Zustand store | 01-04 | ○ |
+| 01-15 | Create onboarding Zustand store | 01-04 | DONE |
 | 01-16 | Create onboarding validators | 01-04 | DONE |
 
 ### Wave 10 - Onboarding Steps
@@ -198,12 +198,17 @@
 - Centered layout with ConsultSystem branding
 - Root redirect to /login via Next.js server-side redirect
 
+### Onboarding Store (01-15)
+- Separate interfaces per step with null initial values
+- Zustand persist middleware with localStorage
+- Generic setStepData with type-safe key constraint
+
 ## Blockers
 None
 
 ## Session Continuity
 - **Last session:** 2026-02-04T07:13Z
-- **Stopped at:** Completed 01-16-PLAN.md
+- **Stopped at:** Completed 01-15-PLAN.md
 - **Resume file:** None
 
 ## Notes
