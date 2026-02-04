@@ -57,11 +57,14 @@ export default function DashboardPage() {
             <CardTitle>Acciones rapidas</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            <Button asChild className="w-full justify-start" variant="outline">
-              <Link href="/citas/nueva">
-                <Plus className="mr-2 h-4 w-4" />
-                Nueva cita
-              </Link>
+            <Button
+              className="w-full justify-start"
+              variant="outline"
+              disabled
+              title="Disponible en Fase 3"
+            >
+              <Plus className="mr-2 h-4 w-4" />
+              Nueva cita (pronto)
             </Button>
             <Button asChild className="w-full justify-start" variant="outline">
               <Link href="/agenda">
