@@ -3,14 +3,14 @@
 ## Current Status
 - **Milestone:** v1.0
 - **Phase:** 01 - Foundation + Auth + Onboarding
-- **Plan:** 17 of 36 complete
+- **Plan:** 18 of 36 complete
 - **Status:** In progress
-- **Last activity:** 2026-02-04 - Completed 01-15-PLAN.md
+- **Last activity:** 2026-02-04 - Completed 01-17-PLAN.md
 
 ## Progress
 | Phase | Status | Plans | Progress |
 |-------|--------|-------|----------|
-| 01    | In progress | 17/36 | 47% |
+| 01    | In progress | 18/36 | 50% |
 | 02    | ○      | 0/?   | 0% |
 | 03    | ○      | 0/?   | 0% |
 | 04    | ○      | 0/?   | 0% |
@@ -72,7 +72,7 @@
 ### Wave 10 - Onboarding Steps
 | Plan | Name | Depends On | Status |
 |------|------|------------|--------|
-| 01-17 | Create onboarding steps 1-2 | 01-15, 01-16 | ○ |
+| 01-17 | Create onboarding steps 1-2 | 01-15, 01-16 | DONE |
 | 01-18 | Create onboarding step 3 (branding) | 01-15, 01-16, 01-11 | ○ |
 | 01-19 | Create onboarding step 4 (schedule) | 01-15, 01-16 | ○ |
 | 01-20 | Create onboarding step 5 (setup) | 01-15, 01-16 | ○ |
@@ -203,12 +203,17 @@
 - Zustand persist middleware with localStorage
 - Generic setStepData with type-safe key constraint
 
+### Onboarding Steps 1-2 (01-17)
+- Theme-aware colors (muted-foreground, destructive) for dark mode
+- Disabled continue button while user data loads from Convex
+- Step pattern: Card wrapper with onNext/onBack props
+
 ## Blockers
 None
 
 ## Session Continuity
-- **Last session:** 2026-02-04T07:13Z
-- **Stopped at:** Completed 01-15-PLAN.md
+- **Last session:** 2026-02-04T07:18Z
+- **Stopped at:** Completed 01-17-PLAN.md
 - **Resume file:** None
 
 ## Notes
