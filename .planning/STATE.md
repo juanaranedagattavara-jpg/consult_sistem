@@ -3,14 +3,14 @@
 ## Current Status
 - **Milestone:** v1.0
 - **Phase:** 01 - Foundation + Auth + Onboarding
-- **Plan:** 03 of 36 complete
+- **Plan:** 04 of 36 complete
 - **Status:** In progress
-- **Last activity:** 2026-02-04 - Completed 01-03-PLAN.md
+- **Last activity:** 2026-02-04 - Completed 01-04-PLAN.md
 
 ## Progress
 | Phase | Status | Plans | Progress |
 |-------|--------|-------|----------|
-| 01    | In progress | 3/36 | 8% |
+| 01    | In progress | 4/36 | 11% |
 | 02    | ○      | 0/?   | 0% |
 | 03    | ○      | 0/?   | 0% |
 | 04    | ○      | 0/?   | 0% |
@@ -31,7 +31,7 @@
 | Plan | Name | Depends On | Status |
 |------|------|------------|--------|
 | 01-03 | Create Convex schema | 01-02 | DONE |
-| 01-04 | Setup shadcn/ui | 01-01 | ○ |
+| 01-04 | Setup shadcn/ui | 01-01 | DONE |
 
 ### Wave 4 - Auth & Providers
 | Plan | Name | Depends On | Status |
@@ -158,12 +158,17 @@
 - Typed unions for enum fields (role, notificationMethod, onReject)
 - Storage references for file uploads (logo, avatar)
 
+### UI Foundation (01-04)
+- shadcn/ui with new-york style
+- CSS variables for theming (dark mode ready)
+- cn() utility for className merging
+
 ## Blockers
 None
 
 ## Session Continuity
-- **Last session:** 2026-02-04T06:44Z
-- **Stopped at:** Completed 01-03-PLAN.md
+- **Last session:** 2026-02-04T06:47Z
+- **Stopped at:** Completed 01-04-PLAN.md
 - **Resume file:** None
 
 ## Notes
