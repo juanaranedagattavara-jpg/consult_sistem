@@ -3,14 +3,14 @@
 ## Current Status
 - **Milestone:** v1.0
 - **Phase:** 01 - Foundation + Auth + Onboarding
-- **Plan:** 08 of 36 complete
+- **Plan:** 09 of 36 complete
 - **Status:** In progress
-- **Last activity:** 2026-02-04 - Completed 01-08-PLAN.md
+- **Last activity:** 2026-02-04 - Completed 01-09-PLAN.md
 
 ## Progress
 | Phase | Status | Plans | Progress |
 |-------|--------|-------|----------|
-| 01    | In progress | 8/36 | 22% |
+| 01    | In progress | 9/36 | 25% |
 | 02    | ○      | 0/?   | 0% |
 | 03    | ○      | 0/?   | 0% |
 | 04    | ○      | 0/?   | 0% |
@@ -44,7 +44,7 @@
 |------|------|------------|--------|
 | 01-07 | Create auth validators (Zod) | 01-04 | DONE |
 | 01-08 | Create file mutations | 01-03 | DONE |
-| 01-09 | Create settings mutations | 01-03 | ○ |
+| 01-09 | Create settings mutations | 01-03 | DONE |
 
 ### Wave 6 - Auth Mutations
 | Plan | Name | Depends On | Status |
@@ -173,12 +173,17 @@
 - Used v.id("_storage") for type-safe storage IDs
 - Storage operations: mutations for write, queries for read
 
+### Settings Mutations (01-09)
+- Partial update pattern: each mutation updates specific config section
+- Schema alignment: validators match schema exactly (botConfig.tone is string, not union)
+- Auto-timestamps: all mutations update updatedAt field
+
 ## Blockers
 None
 
 ## Session Continuity
 - **Last session:** 2026-02-04T07:01Z
-- **Stopped at:** Completed 01-08-PLAN.md
+- **Stopped at:** Completed 01-09-PLAN.md
 - **Resume file:** None
 
 ## Notes
