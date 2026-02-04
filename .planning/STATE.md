@@ -10,7 +10,7 @@
 ## Progress
 | Phase | Status | Plans | Progress |
 |-------|--------|-------|----------|
-| 01    | In progress | 19/36 | 53% |
+| 01    | In progress | 21/36 | 58% |
 | 02    | ○      | 0/?   | 0% |
 | 03    | ○      | 0/?   | 0% |
 | 04    | ○      | 0/?   | 0% |
@@ -75,7 +75,7 @@
 | 01-17 | Create onboarding steps 1-2 | 01-15, 01-16 | DONE |
 | 01-18 | Create onboarding step 3 (branding) | 01-15, 01-16, 01-11 | DONE |
 | 01-19 | Create onboarding step 4 (schedule) | 01-15, 01-16 | DONE |
-| 01-20 | Create onboarding step 5 (setup) | 01-15, 01-16 | ○ |
+| 01-20 | Create onboarding step 5 (setup) | 01-15, 01-16 | DONE |
 | 01-21 | Create progress bar component | 01-04 | DONE |
 
 ### Wave 11 - Onboarding Page
@@ -219,12 +219,18 @@
 - Optional lunch break with checkbox toggle
 - Uses scheduleSchema for validation
 
+### Onboarding Step 5 Setup (01-20)
+- Duration selector buttons with theme-aware styling
+- Error colors use text-destructive for dark mode
+- Final step: onBack only (no onNext)
+- On submit: save data, toast, reset store, redirect to /dashboard
+
 ## Blockers
 None
 
 ## Session Continuity
-- **Last session:** 2026-02-04T07:19Z
-- **Stopped at:** Completed 01-19-PLAN.md
+- **Last session:** 2026-02-04T07:20Z
+- **Stopped at:** Completed 01-20-PLAN.md
 - **Resume file:** None
 
 ## Notes
