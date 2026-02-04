@@ -10,7 +10,7 @@
 ## Progress
 | Phase | Status | Plans | Progress |
 |-------|--------|-------|----------|
-| 01    | In progress | 24/36 | 67% |
+| 01    | In progress | 25/36 | 69% |
 | 02    | ○      | 0/?   | 0% |
 | 03    | ○      | 0/?   | 0% |
 | 04    | ○      | 0/?   | 0% |
@@ -87,8 +87,8 @@
 | Plan | Name | Depends On | Status |
 |------|------|------------|--------|
 | 01-23 | Create clinic settings form | 01-09, 01-06 | DONE |
-| 01-24 | Create bot config form | 01-09, 01-06 | ○ |
-| 01-25 | Create timing settings form | 01-09, 01-06 | ○ |
+| 01-24 | Create bot config form | 01-09, 01-06 | DONE |
+| 01-25 | Create timing settings form | 01-09, 01-06 | DONE |
 | 01-26 | Create appearance form | 01-09, 01-11 | ○ |
 | 01-27 | Create profile form | 01-09, 01-06 | DONE |
 
