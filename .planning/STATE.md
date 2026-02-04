@@ -3,14 +3,14 @@
 ## Current Status
 - **Milestone:** v1.0
 - **Phase:** 01 - Foundation + Auth + Onboarding
-- **Plan:** 01 of 36 complete
+- **Plan:** 03 of 36 complete
 - **Status:** In progress
-- **Last activity:** 2026-02-04 - Completed 01-01-PLAN.md
+- **Last activity:** 2026-02-04 - Completed 01-03-PLAN.md
 
 ## Progress
 | Phase | Status | Plans | Progress |
 |-------|--------|-------|----------|
-| 01    | In progress | 1/36 | 3% |
+| 01    | In progress | 3/36 | 8% |
 | 02    | ○      | 0/?   | 0% |
 | 03    | ○      | 0/?   | 0% |
 | 04    | ○      | 0/?   | 0% |
@@ -25,12 +25,12 @@
 ### Wave 2 - Convex Setup
 | Plan | Name | Depends On | Status |
 |------|------|------------|--------|
-| 01-02 | Install and configure Convex | 01-01 | ○ |
+| 01-02 | Install and configure Convex | 01-01 | DONE |
 
 ### Wave 3 - Schema & UI Foundation
 | Plan | Name | Depends On | Status |
 |------|------|------------|--------|
-| 01-03 | Create Convex schema | 01-02 | ○ |
+| 01-03 | Create Convex schema | 01-02 | DONE |
 | 01-04 | Setup shadcn/ui | 01-01 | ○ |
 
 ### Wave 4 - Auth & Providers
@@ -153,12 +153,17 @@
 - Bidirectional sync
 - If API fails: schedule anyway, sync later
 
+### Schema Design (01-03)
+- Nested objects for complex configs (botConfig, timing, waitlistConfig)
+- Typed unions for enum fields (role, notificationMethod, onReject)
+- Storage references for file uploads (logo, avatar)
+
 ## Blockers
 None
 
 ## Session Continuity
-- **Last session:** 2026-02-04T06:31Z
-- **Stopped at:** Completed 01-01-PLAN.md
+- **Last session:** 2026-02-04T06:44Z
+- **Stopped at:** Completed 01-03-PLAN.md
 - **Resume file:** None
 
 ## Notes
