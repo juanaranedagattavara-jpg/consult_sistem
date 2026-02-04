@@ -3,14 +3,14 @@
 ## Current Status
 - **Milestone:** v1.0
 - **Phase:** 01 - Foundation + Auth + Onboarding
-- **Plan:** 28 of 36 complete
+- **Plan:** 29 of 36 complete
 - **Status:** In progress
-- **Last activity:** 2026-02-04 - Completed 01-28-PLAN.md
+- **Last activity:** 2026-02-04 - Completed 01-29-PLAN.md
 
 ## Progress
 | Phase | Status | Plans | Progress |
 |-------|--------|-------|----------|
-| 01    | In progress | 28/36 | 78% |
+| 01    | In progress | 29/36 | 81% |
 | 02    | ○      | 0/?   | 0% |
 | 03    | ○      | 0/?   | 0% |
 | 04    | ○      | 0/?   | 0% |
@@ -100,7 +100,7 @@
 ### Wave 14 - Dashboard Queries
 | Plan | Name | Depends On | Status |
 |------|------|------------|--------|
-| 01-29 | Create dashboard queries + useCurrentClinic | 01-03, 01-10 | ○ |
+| 01-29 | Create dashboard queries + useCurrentClinic | 01-03, 01-10 | DONE |
 
 ### Wave 15 - Dashboard Components
 | Plan | Name | Depends On | Status |
@@ -262,8 +262,8 @@
 None
 
 ## Session Continuity
-- **Last session:** 2026-02-04T07:38Z
-- **Stopped at:** Completed 01-28-PLAN.md
+- **Last session:** 2026-02-04T10:05Z
+- **Stopped at:** Completed 01-29-PLAN.md
 - **Resume file:** None
 
 ## Notes
