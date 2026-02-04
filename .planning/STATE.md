@@ -1,41 +1,167 @@
-# Project State: ConsultSystem
+# Project State
 
 ## Current Status
+- **Milestone:** v1.0
+- **Phase:** 01 - Foundation + Auth + Onboarding
+- **Plan:** 01 of 36 complete
+- **Status:** In progress
+- **Last activity:** 2026-02-04 - Completed 01-01-PLAN.md
 
-**Phase:** 1 (Foundation)
-**Status:** Not Started
-**Last Updated:** 2026-02-04
+## Progress
+| Phase | Status | Plans | Progress |
+|-------|--------|-------|----------|
+| 01    | In progress | 1/36 | 3% |
+| 02    | ○      | 0/?   | 0% |
+| 03    | ○      | 0/?   | 0% |
+| 04    | ○      | 0/?   | 0% |
 
-## Project Reference
+## Phase 01 Plans (Atomic - 1 task = 1 plan)
 
-See: .planning/PROJECT.md (updated 2026-02-04)
+### Wave 1 - Project Init
+| Plan | Name | Depends On | Status |
+|------|------|------------|--------|
+| 01-01 | Initialize Next.js 15 | - | DONE |
 
-**Core value:** Los pacientes confirman sus citas automaticamente via WhatsApp y las horas canceladas se recuperan mediante lista de espera inteligente.
-**Current focus:** Phase 1 - Foundation + Auth + Onboarding
+### Wave 2 - Convex Setup
+| Plan | Name | Depends On | Status |
+|------|------|------------|--------|
+| 01-02 | Install and configure Convex | 01-01 | ○ |
 
-## Phase Progress
+### Wave 3 - Schema & UI Foundation
+| Plan | Name | Depends On | Status |
+|------|------|------------|--------|
+| 01-03 | Create Convex schema | 01-02 | ○ |
+| 01-04 | Setup shadcn/ui | 01-01 | ○ |
 
-| Phase | Name | Status | Plans | Progress |
-|-------|------|--------|-------|----------|
-| 1 | Foundation | Pending | 0/? | 0% |
-| 2 | Team & Calendar | Pending | 0/? | 0% |
-| 3 | Patients & Appointments | Pending | 0/? | 0% |
-| 4 | n8n Integration | Pending | 0/? | 0% |
+### Wave 4 - Auth & Providers
+| Plan | Name | Depends On | Status |
+|------|------|------------|--------|
+| 01-05 | Configure Convex Auth | 01-03 | ○ |
+| 01-06 | Create root layout with providers | 01-04 | ○ |
+
+### Wave 5 - Validators & Mutations Base
+| Plan | Name | Depends On | Status |
+|------|------|------------|--------|
+| 01-07 | Create auth validators (Zod) | 01-04 | ○ |
+| 01-08 | Create file mutations | 01-03 | ○ |
+| 01-09 | Create settings mutations | 01-03 | ○ |
+
+### Wave 6 - Auth Mutations
+| Plan | Name | Depends On | Status |
+|------|------|------------|--------|
+| 01-10 | Create auth mutations | 01-05, 01-03 | ○ |
+
+### Wave 7 - Components Base
+| Plan | Name | Depends On | Status |
+|------|------|------------|--------|
+| 01-11 | Create FileUpload component | 01-06, 01-08 | ○ |
+| 01-12 | Create useFileUrl hook | 01-08 | ○ |
+| 01-13 | Create auth forms | 01-07, 01-10 | ○ |
+
+### Wave 8 - Auth Pages
+| Plan | Name | Depends On | Status |
+|------|------|------------|--------|
+| 01-14 | Create auth pages | 01-13, 01-06 | ○ |
+
+### Wave 9 - Onboarding Foundation
+| Plan | Name | Depends On | Status |
+|------|------|------------|--------|
+| 01-15 | Create onboarding Zustand store | 01-04 | ○ |
+| 01-16 | Create onboarding validators | 01-04 | ○ |
+
+### Wave 10 - Onboarding Steps
+| Plan | Name | Depends On | Status |
+|------|------|------------|--------|
+| 01-17 | Create onboarding steps 1-2 | 01-15, 01-16 | ○ |
+| 01-18 | Create onboarding step 3 (branding) | 01-15, 01-16, 01-11 | ○ |
+| 01-19 | Create onboarding step 4 (schedule) | 01-15, 01-16 | ○ |
+| 01-20 | Create onboarding step 5 (setup) | 01-15, 01-16 | ○ |
+| 01-21 | Create progress bar component | 01-04 | ○ |
+
+### Wave 11 - Onboarding Page
+| Plan | Name | Depends On | Status |
+|------|------|------------|--------|
+| 01-22 | Create onboarding page + mutation | 01-17, 01-18, 01-19, 01-20, 01-21, 01-09 | ○ |
+
+### Wave 12 - Settings Forms
+| Plan | Name | Depends On | Status |
+|------|------|------------|--------|
+| 01-23 | Create clinic settings form | 01-09, 01-06 | ○ |
+| 01-24 | Create bot config form | 01-09, 01-06 | ○ |
+| 01-25 | Create timing settings form | 01-09, 01-06 | ○ |
+| 01-26 | Create appearance form | 01-09, 01-11 | ○ |
+| 01-27 | Create profile form | 01-09, 01-06 | ○ |
+
+### Wave 13 - Settings Pages
+| Plan | Name | Depends On | Status |
+|------|------|------------|--------|
+| 01-28 | Create settings pages | 01-23, 01-24, 01-25, 01-26, 01-27 | ○ |
+
+### Wave 14 - Dashboard Queries
+| Plan | Name | Depends On | Status |
+|------|------|------------|--------|
+| 01-29 | Create dashboard queries + useCurrentClinic | 01-03, 01-10 | ○ |
+
+### Wave 15 - Dashboard Components
+| Plan | Name | Depends On | Status |
+|------|------|------------|--------|
+| 01-30 | Create header component | 01-29, 01-12 | ○ |
+| 01-31 | Create nav component | 01-29 | ○ |
+| 01-32 | Create stats card component | 01-29 | ○ |
+| 01-33 | Create upcoming appointments | 01-29 | ○ |
+
+### Wave 16 - Dashboard Pages
+| Plan | Name | Depends On | Status |
+|------|------|------------|--------|
+| 01-34 | Create dashboard layout | 01-30, 01-31 | ○ |
+| 01-35 | Create dashboard page | 01-32, 01-33, 01-34 | ○ |
+| 01-36 | Create placeholder pages | 01-34 | ○ |
+
+## Execution Summary
+- **Total Plans:** 36
+- **Total Waves:** 16
+- **Max Parallelism:** Wave 10 (5 plans), Wave 12 (5 plans), Wave 15 (4 plans)
+- **Estimated Execution:** Sequential waves, parallel within waves
 
 ## Decisions Made
 
-(None yet)
+### Architecture
+- Single-tenant VPS per clinic
+- Convex as backend (serverless + real-time)
+- n8n for WhatsApp bot (existing workflow)
+
+### UX/UI
+- Desktop: horizontal navigation (no sidebar)
+- Mobile: hamburger menu
+- Form-based appointment creation (no calendar click)
+- Color-coded appointment states
+
+### Bot
+- Multi-agent architecture (Main + Calendar + CRM subagents)
+- Configurable tone per clinic
+- Buffer de mensajes con Redis
+- Fallback to email if WhatsApp fails
+
+### Waitlist
+- Multi-factor priority scoring (urgency, history, wait time, FIFO)
+- Configurable weights per clinic
+- Sequential or broadcast notification method
+- Configurable timeouts
+
+### Google Calendar
+- Professional owns their calendar
+- Bidirectional sync
+- If API fails: schedule anyway, sync later
 
 ## Blockers
+None
 
-(None)
+## Session Continuity
+- **Last session:** 2026-02-04T06:31Z
+- **Stopped at:** Completed 01-01-PLAN.md
+- **Resume file:** None
 
 ## Notes
-
-- Project initialized 2026-02-04
-- Model profile: quality (Opus for research/planning)
-- Mode: YOLO (auto-approve execution)
-- Depth: comprehensive
-
----
-*Last updated: 2026-02-04*
+- Existing n8n workflow: "WhatsApp COMPLETO - Agenda Citas + Derivaciones.json"
+- Migration needed: Airtable -> Convex HTTP API
+- Atomization complete: 1 task = 1 plan for maximum granularity
