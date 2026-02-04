@@ -8,8 +8,8 @@
 
 | # | Phase | Goal | Requirements | Status |
 |---|-------|------|--------------|--------|
-| 1 | Foundation | Auth + Onboarding + Dashboard base | AUTH, ONBO, CLIN, DASH (23 reqs) | Pending |
-| 2 | Team & Calendar | Profesionales + Servicios + Google Calendar | PROF, SERV, AVAI (17 reqs) | Pending |
+| 1 | Foundation | Auth + Onboarding + Dashboard base | AUTH, ONBO, CLIN, DASH (23 reqs) | Complete |
+| 2 | Team & Calendar | Profesionales + Servicios + Google Calendar | PROF, SERV, AVAI (17 reqs) | Planned |
 | 3 | Patients & Appointments | CRUD pacientes + Citas + Agenda visual | PATI, IMPO, APPT, ACTN, AGEN (27 reqs) | Pending |
 | 4 | n8n Integration | HTTP API para conectar workflow n8n | HTTP (8 reqs) | Pending |
 
@@ -43,20 +43,22 @@
 
 **Dependencies:** None (first phase)
 
+**Plans:** 36 plans (Complete)
+
 ---
 
 ## Phase 2: Team & Calendar
 
-**Goal:** Gestion de equipo medico con integracion Google Calendar bidireccional.
+**Goal:** Gestion de equipo medico con integracion Google Calendar (modelo OAuth centralizado via n8n).
 
 **Requirements:**
-- PROF-01..07: CRUD profesionales + OAuth
-- SERV-01..05: CRUD servicios
+- PROF-01..07: CRUD profesionales + Calendar ID
+- SERV-01..05: CRUD servicios con categorias
 - AVAI-01..05: Availability API
 
 **Success Criteria:**
 1. Admin puede crear profesional con datos completos
-2. Profesional conecta Google Calendar (OAuth flow)
+2. Profesional tiene calendar ID seleccionable (n8n tiene OAuth)
 3. Sistema muestra disponibilidad real del calendario
 4. Horarios de almuerzo bloquean slots
 5. Excepciones (vacaciones) bloquean dias completos
@@ -64,12 +66,41 @@
 7. Tabla profesionales con status de calendar
 
 **Technical Notes:**
-- Google Calendar API v3
-- Refresh token encrypted en Convex
-- Actions para llamadas externas
+- Modelo OAuth centralizado: n8n tiene OAuth, sistema guarda calendar IDs
+- Hono + convex-helpers para HTTP API
+- @dnd-kit para drag-drop servicios
 - Time pickers con shadcn/ui
 
 **Dependencies:** Phase 1 (auth, clinic context)
+
+**Plans:** 25 plans
+
+Plans:
+- [ ] 02-01-PLAN.md — Install dependencies + shadcn components
+- [ ] 02-02-PLAN.md — Schema: serviceCategories + services tables
+- [ ] 02-03-PLAN.md — Schema: professionals + exceptions tables
+- [ ] 02-04-PLAN.md — Service categories mutations + queries
+- [ ] 02-05-PLAN.md — Services mutations + queries
+- [ ] 02-06-PLAN.md — Professionals mutations + queries
+- [ ] 02-07-PLAN.md — Professional exceptions mutations + queries
+- [ ] 02-08-PLAN.md — Multi-select component
+- [ ] 02-09-PLAN.md — Time picker component
+- [ ] 02-10-PLAN.md — Color picker component
+- [ ] 02-11-PLAN.md — Availability algorithm helpers
+- [ ] 02-12-PLAN.md — Hono HTTP router + API key middleware
+- [ ] 02-13-PLAN.md — HTTP endpoints (professionals, services, categories)
+- [ ] 02-14-PLAN.md — Category form + list components
+- [ ] 02-15-PLAN.md — Service form component
+- [ ] 02-16-PLAN.md — Professional form component
+- [ ] 02-17-PLAN.md — Schedule editor component
+- [ ] 02-18-PLAN.md — Calendar selector component
+- [ ] 02-19-PLAN.md — Services page with accordion + drag-drop
+- [ ] 02-20-PLAN.md — Professionals table component
+- [ ] 02-21-PLAN.md — Professionals cards component
+- [ ] 02-22-PLAN.md — Professionals pages (list, new, edit)
+- [ ] 02-23-PLAN.md — Availability action
+- [ ] 02-24-PLAN.md — HTTP availability endpoint
+- [ ] 02-25-PLAN.md — Human verification checkpoint
 
 ---
 
