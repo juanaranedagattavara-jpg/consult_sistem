@@ -3,14 +3,14 @@
 ## Current Status
 - **Milestone:** v1.0
 - **Phase:** 01 - Foundation + Auth + Onboarding
-- **Plan:** 20 of 36 complete
+- **Plan:** 22 of 36 complete
 - **Status:** In progress
-- **Last activity:** 2026-02-04 - Completed 01-20-PLAN.md
+- **Last activity:** 2026-02-04 - Completed 01-22-PLAN.md
 
 ## Progress
 | Phase | Status | Plans | Progress |
 |-------|--------|-------|----------|
-| 01    | In progress | 21/36 | 58% |
+| 01    | In progress | 22/36 | 61% |
 | 02    | ○      | 0/?   | 0% |
 | 03    | ○      | 0/?   | 0% |
 | 04    | ○      | 0/?   | 0% |
@@ -81,7 +81,7 @@
 ### Wave 11 - Onboarding Page
 | Plan | Name | Depends On | Status |
 |------|------|------------|--------|
-| 01-22 | Create onboarding page + mutation | 01-17, 01-18, 01-19, 01-20, 01-21, 01-09 | ○ |
+| 01-22 | Create onboarding page + mutation | 01-17, 01-18, 01-19, 01-20, 01-21, 01-09 | DONE |
 
 ### Wave 12 - Settings Forms
 | Plan | Name | Depends On | Status |
@@ -225,12 +225,19 @@
 - Final step: onBack only (no onNext)
 - On submit: save data, toast, reset store, redirect to /dashboard
 
+### Onboarding Page and Mutation (01-22)
+- Wizard container renders steps based on currentStep from store
+- Theme-aware layout (bg-background, text-foreground)
+- completeOnboarding mutation validates user via auth identity
+- Saves all form data: clinic info, branding, schedule, setup
+- Sets onboardingCompleted: true
+
 ## Blockers
 None
 
 ## Session Continuity
-- **Last session:** 2026-02-04T07:20Z
-- **Stopped at:** Completed 01-20-PLAN.md
+- **Last session:** 2026-02-04T07:25Z
+- **Stopped at:** Completed 01-22-PLAN.md
 - **Resume file:** None
 
 ## Notes
