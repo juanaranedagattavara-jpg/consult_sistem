@@ -3,14 +3,14 @@
 ## Current Status
 - **Milestone:** v1.0
 - **Phase:** 01 - Foundation + Auth + Onboarding
-- **Plan:** 23 of 36 complete
+- **Plan:** 25 of 36 complete
 - **Status:** In progress
-- **Last activity:** 2026-02-04 - Completed 01-27-PLAN.md
+- **Last activity:** 2026-02-04 - Completed 01-25-PLAN.md
 
 ## Progress
 | Phase | Status | Plans | Progress |
 |-------|--------|-------|----------|
-| 01    | In progress | 23/36 | 64% |
+| 01    | In progress | 24/36 | 67% |
 | 02    | ○      | 0/?   | 0% |
 | 03    | ○      | 0/?   | 0% |
 | 04    | ○      | 0/?   | 0% |
@@ -86,7 +86,7 @@
 ### Wave 12 - Settings Forms
 | Plan | Name | Depends On | Status |
 |------|------|------------|--------|
-| 01-23 | Create clinic settings form | 01-09, 01-06 | ○ |
+| 01-23 | Create clinic settings form | 01-09, 01-06 | DONE |
 | 01-24 | Create bot config form | 01-09, 01-06 | ○ |
 | 01-25 | Create timing settings form | 01-09, 01-06 | ○ |
 | 01-26 | Create appearance form | 01-09, 01-11 | ○ |
@@ -237,12 +237,17 @@
 - Reset form with useEffect when user data loads
 - Profile form pattern: avatar + editable fields + readonly fields
 
+### Clinic Settings Form (01-23)
+- useEffect for form.reset when user data loads (defaultValues only work on initial mount)
+- Theme-aware error styling (text-destructive)
+- Loading state shows centered in card
+
 ## Blockers
 None
 
 ## Session Continuity
-- **Last session:** 2026-02-04T07:30Z
-- **Stopped at:** Completed 01-27-PLAN.md
+- **Last session:** 2026-02-04T07:32Z
+- **Stopped at:** Completed 01-23-PLAN.md
 - **Resume file:** None
 
 ## Notes
