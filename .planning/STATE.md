@@ -3,14 +3,14 @@
 ## Current Status
 - **Milestone:** v1.0
 - **Phase:** 01 - Foundation + Auth + Onboarding
-- **Plan:** 14 of 36 complete
+- **Plan:** 16 of 36 complete
 - **Status:** In progress
-- **Last activity:** 2026-02-04 - Completed 01-14-PLAN.md
+- **Last activity:** 2026-02-04 - Completed 01-16-PLAN.md
 
 ## Progress
 | Phase | Status | Plans | Progress |
 |-------|--------|-------|----------|
-| 01    | In progress | 14/36 | 39% |
+| 01    | In progress | 16/36 | 44% |
 | 02    | ○      | 0/?   | 0% |
 | 03    | ○      | 0/?   | 0% |
 | 04    | ○      | 0/?   | 0% |
@@ -67,7 +67,7 @@
 | Plan | Name | Depends On | Status |
 |------|------|------------|--------|
 | 01-15 | Create onboarding Zustand store | 01-04 | ○ |
-| 01-16 | Create onboarding validators | 01-04 | ○ |
+| 01-16 | Create onboarding validators | 01-04 | DONE |
 
 ### Wave 10 - Onboarding Steps
 | Plan | Name | Depends On | Status |
@@ -202,8 +202,8 @@
 None
 
 ## Session Continuity
-- **Last session:** 2026-02-04T07:10Z
-- **Stopped at:** Completed 01-14-PLAN.md
+- **Last session:** 2026-02-04T07:13Z
+- **Stopped at:** Completed 01-16-PLAN.md
 - **Resume file:** None
 
 ## Notes
